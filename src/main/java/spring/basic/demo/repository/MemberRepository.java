@@ -8,7 +8,7 @@ import java.util.Map;
 
 @Repository
 public class MemberRepository implements MemberRepositoryInterface{
-
+    // DB대신 MAP 사용하여 데이터 저장
     public static Map<Integer, Member> dbMap = new HashMap<>();
     public static int index = 0;
 
