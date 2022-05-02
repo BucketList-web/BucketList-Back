@@ -6,7 +6,7 @@ import spring.basic.demo.domain.Member;
 import java.util.HashMap;
 import java.util.Map;
 
-@Repository
+
 public class MemberRepository implements MemberRepositoryInterface{
     // DB대신 MAP 사용하여 데이터 저장
     public static Map<Integer, Member> dbMap = new HashMap<>();
@@ -20,6 +20,7 @@ public class MemberRepository implements MemberRepositoryInterface{
 
     @Override
     public Member findById(int id) {            // 기준값을 비교하여 member값을 출력함
+
         return dbMap.get(id);
     }
 }
