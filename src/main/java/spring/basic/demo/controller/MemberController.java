@@ -10,7 +10,7 @@ import spring.basic.demo.domain.Member;
 import spring.basic.demo.service.MemberService;
 
 
-@Controller
+// @Controller      spring bean 사용하여 따로 설정했으므로 삭제해야함
 public class MemberController {
 
     MemberService service;
@@ -23,7 +23,7 @@ public class MemberController {
     public String createMember(){
         return "members/createForm";
     }
-    
+
     // URL 이 변경되지 않은 상태에서 실행
     @PostMapping("members/new")
     public String create(@RequestParam("name") String name){
@@ -39,19 +39,20 @@ public class MemberController {
 
     @GetMapping("members/find")
     public String findMember(){
+
         return "members/findForm";
     }
 
     @PostMapping("members/find")
     public String find(@RequestParam("id")int id, Model model){
         // Service를 통해서 id로 member를 찾아서
-       Member m = service.findMemberBuId(id);
+        Member m = service.findMemberBuId(id);
 
-       // 찾은 객체를 통재로 다음 페이지로 넘김
-       model.addAttribute("member",m);  // member라는 상자에 m객체를 넣어서 보내줌
-        
+        // 찾은 객체를 통재로 다음 페이지로 넘김
+        model.addAttribute("member",m);  // member라는 상자에 m객체를 넣어서 보내줌
+
         // 다음 페이지로 이동
         return "members/findMember";
     }
-    
+
 }
