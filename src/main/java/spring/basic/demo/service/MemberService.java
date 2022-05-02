@@ -5,14 +5,14 @@ import org.springframework.stereotype.Service;
 import spring.basic.demo.domain.Member;
 import spring.basic.demo.repository.MemberRepositoryInterface;
 
-@Service
+// @Service     spring bean 사용하여 따로 설정했으므로 삭제해야함
 public class MemberService {
 
     private MemberRepositoryInterface repository;
 
     @Autowired
     public MemberService(MemberRepositoryInterface repository){         // service에서 repository 연결하는 느낌
-        this.repository = repository;                               // 사용자는 repository에 접근 하지 못하고 service까지에만 접근이 
+        this.repository = repository;                               // 사용자는 repository에 접근 하지 못하고 service까지에만 접근이
                                                                     // 가능하도록 구현하기 위하여 service에서 repository를 한번더 감싼 느낌
     }
 
