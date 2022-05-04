@@ -6,6 +6,9 @@
 </head>
 <body>
     <p th:text="'ID : '+${member.id}"></p>   <!-- ""안에 ''사용하여 메세지 출력과 thymeleaf사용하여 값 출력 , member는 controller에서 설정한 객체 이름 -->
-    <p th:text="'NAME : '+${member.name}"></p>
+    <p th:text="'가게이름 : '+${member.name}"></p>
+    <p th:text="'가게위치 : '+${member.location}"></p>
+    <p th:text="'메뉴 : '+${member.menu}"></p>
+    <p th:text="'가격 : '+${member.price}"></p><hr>
 </body>
 </html>
