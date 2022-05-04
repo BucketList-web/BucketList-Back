@@ -2,6 +2,7 @@ package spring.basic.demo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import spring.basic.demo.domain.Member;
 import spring.basic.demo.repository.MemberRepositoryInterface;
 
@@ -17,10 +18,16 @@ public class MemberService {
     }
 
     public void join(Member m){                 // join == (repository)saveMember
+
         repository.saveMember(m);
     }
 
     public Member findMemberBuId(int id){       // findMemberBuId == (repository)findById
+
         return repository.findById(id);
+    }
+
+    public Member findall(Member m){
+        return m;
     }
 }
