@@ -18,6 +18,7 @@ public class SpringConfig {
     private DataSource dataSource;      // spring에서 알아서 dataSource안에 DB에 저장된 데이터를 가져옴
 
     public SpringConfig(DataSource dataSource){
+
         this.dataSource = dataSource;
     }
 
