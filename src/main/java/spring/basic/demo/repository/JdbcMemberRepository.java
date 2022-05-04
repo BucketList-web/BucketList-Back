@@ -15,7 +15,7 @@ public class JdbcMemberRepository implements MemberRepositoryInterface{
     public int index = 0;
 
     @Autowired
-    public JdbcMemberRepository(DataSource dataSource){
+    public JdbcMemberRepository(DataSource dataSource){     // spring에서 자체적으로 DB에 저장한 값 연결하는 부분
         this.dataSource = dataSource;
     }
 
@@ -24,22 +24,26 @@ public class JdbcMemberRepository implements MemberRepositoryInterface{
         // 객체에 id값 주고
         // DB에 저장
 
-        //String sql = "INSERT INTO member(id, name) values(?,?)";      // id,name열에 값을 넣겠다 ,values(?,?) = 값을 넣겠다
-        String sql = "INSERT INTO member(name) VALUES(?)";   // identity /id값은 sql에서 알아서 해줌
+        String sql = "INSERT INTO store(id, name,location,menu,price) values(?,?,?,?,?)";      // id,name열에 값을 넣겠다 ,values(?,?) = 값을 넣겠다
+        //String sql = "INSERT INTO member(name) VALUES(?)";   // identity /id값은 sql에서 알아서 해줌
 
         Connection conn = null;
         PreparedStatement pstmt = null;
 
         try {
             conn = dataSource.getConnection();
-            //pstmt = conn.prepareStatement(sql);
-            pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);   // identity  id값을 sql에서 자동으로 해주기 위함
+            pstmt = conn.prepareStatement(sql);
+            //pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);   // identity  id값을 sql에서 자동으로 해주기 위함
 
-            // m.setId(index++);               // setId 설정
+             m.setId(index++);               // setId 설정       현재 게시글 순서를 맞추기 위해 기본키 값을 설정하는 곳으로 로그인 완성되면
+                                            //                    아이디를 키값으로 받아올거기 때문에 아이디로 변경해주면 됨.
 
-            //pstmt.setInt(1,m.getId());      // 첫번째  칸에 id 저장
-            //pstmt.setString(2,m.getName());     // 두번째 칸에 이름 저장
-            pstmt.setString(1,m.getName());
+            pstmt.setInt(1,m.getId());      // 첫번째  칸에 id 저장
+            pstmt.setString(2,m.getName());     // 두번째 칸에 이름 저장
+            pstmt.setString(3,m.getLocation());
+            pstmt.setString(4,m.getMenu());
+            pstmt.setInt(5,m.getPrice());
+            //pstmt.setString(1,m.getName());
 
             pstmt.executeUpdate();
 
@@ -53,7 +57,7 @@ public class JdbcMemberRepository implements MemberRepositoryInterface{
     @Override
     public Member findById(int id) {
 
-        String sql = "SELECT * FROM member WHERE id=?";
+        String sql = "SELECT * FROM store WHERE id=?";
 
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -72,6 +76,9 @@ public class JdbcMemberRepository implements MemberRepositoryInterface{
                 Member m = new Member();            // member클래스 불러옴
                 m.setId(rs.getInt("id"));   // m객체의 id값 저장
                 m.setName(rs.getString("name"));    // m객체의 name값 저장
+                m.setName(rs.getString("location"));
+                m.setName(rs.getString("menu"));
+                m.setName(rs.getString("price"));
 
                 return m;
             }
