@@ -10,13 +10,13 @@ import java.util.List;
 
 // h2 DB연결 부분
 // @Repository     spring bean 사용하여 따로 설정했으므로 삭제해야함
-public class JdbcStoreRepository implements StoreRepositoryInterface {
+public class JdbcBoardRepository implements BoardRepositoryInterface {
 
     private DataSource dataSource;
     public int index = 0;
 
     @Autowired
-    public JdbcStoreRepository(DataSource dataSource){     // spring에서 자체적으로 DB에 저장한 값 연결하는 부분
+    public JdbcBoardRepository(DataSource dataSource){     // spring에서 자체적으로 DB에 저장한 값 연결하는 부분
         this.dataSource = dataSource;
     }
 
