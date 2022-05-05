@@ -20,7 +20,7 @@
     <tr th:each ="imformation : ${data}">     <!-- imformation 변수안에 data를 for:each문을 통해 모든 값을 반복하여 넣는다. -->
         <td th:text="${imformation.id}"></td>      <!-- imformation변수안에 id값을 넣는다. -->
         <td th:text="${imformation.location}"></td>
-        <td th:text="${imformation.name}"></td>      <!-- imformation변수 안에 name값을 넣는다. -->
+        <td th:text="${imformation.name}"></td>      <!-- imformation변수 안에 name값을 넣는다.  -->
         <td th:text="${imformation.price}"></td>
         <td th:text="${imformation.content}"></td>
         <td th:text="${imformation.tag}"></td>
