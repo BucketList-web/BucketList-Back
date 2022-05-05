@@ -2,9 +2,9 @@ package spring.basic.demo;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import spring.basic.demo.repository.JdbcMemberRepository;
-import spring.basic.demo.repository.MemberRepositoryInterface;
-import spring.basic.demo.service.MemberService;
+import spring.basic.demo.repository.JdbcStoreRepository;
+import spring.basic.demo.repository.StoreRepositoryInterface;
+import spring.basic.demo.service.BoardService;
 
 import javax.sql.DataSource;
 
@@ -23,12 +23,12 @@ public class SpringConfig {
     }
 
     @Bean
-    public MemberService memberService() {           // 사용할 서비스는
-        return new MemberService(memberRepositoryInterface());  // MemberService()이다. 서비스는 repository에서 데이터를 가져옴
+    public BoardService StoreService() {           // 사용할 서비스는
+        return new BoardService(storeRepositoryInterface());  // MemberService()이다. 서비스는 repository에서 데이터를 가져옴
     }
 
     @Bean
-    public MemberRepositoryInterface memberRepositoryInterface() {      // 사용할 repository는
-        return new JdbcMemberRepository(dataSource);                  // JdbcMemberRepository()이다. repository는 DB에서 데이터를 가져옴
+    public StoreRepositoryInterface storeRepositoryInterface() {      // 사용할 repository는
+        return new JdbcStoreRepository(dataSource);                  // JdbcMemberRepository()이다. repository는 DB에서 데이터를 가져옴
     }
 }
