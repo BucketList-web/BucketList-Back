@@ -6,6 +6,8 @@ import spring.basic.demo.domain.Member;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 // h2 DB연결 부분
 // @Repository     spring bean 사용하여 따로 설정했으므로 삭제해야함
@@ -76,9 +78,9 @@ public class JdbcMemberRepository implements MemberRepositoryInterface{
                 Member m = new Member();            // member클래스 불러옴
                 m.setId(rs.getInt("id"));   // m객체의 id값 저장
                 m.setName(rs.getString("name"));    // m객체의 name값 저장
-                m.setName(rs.getString("location"));
-                m.setName(rs.getString("menu"));
-                m.setName(rs.getString("price"));
+                m.setLocation(rs.getString("location"));
+                m.setMenu(rs.getString("menu"));
+                m.setPrice(rs.getInt("price"));
 
                 return m;
             }
@@ -91,6 +93,47 @@ public class JdbcMemberRepository implements MemberRepositoryInterface{
 
         return null;
     }
+
+    @Override
+    public List<Member> findAll() {
+        List<Member> dataList = new ArrayList<>();    // select *from store 결과 담을 리스트
+
+        String sql = "SELECT * FROM store";
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        ResultSet rs = null;        // 디비에서 가져올 값을 저장할 객체
+
+        try {
+            conn = dataSource.getConnection();
+            pstmt = conn.prepareStatement(sql);
+
+            rs = pstmt.executeQuery();  // select 문 사용시에는 executeQuery 사용
+
+            while(rs.next()){          // rs객체에 결과값이 있다면(모든 데이터를 출력하기 위해 while 사용)
+                Member m = new Member();            // member클래스 불러옴
+                m.setId(rs.getInt("id"));   // m객체의 id값 저장
+                m.setName(rs.getString("name"));    // m객체의 name값 저장
+                m.setLocation(rs.getString("location"));
+                m.setMenu(rs.getString("menu"));
+                m.setPrice(rs.getInt("price"));
+
+
+                dataList.add(m);           // dataList에 추가
+            }
+
+            return dataList;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(conn);            // finally는 try-catch문을 다 실행하고 떠나기 전에 무조건 실행하는  장소
+        }
+
+        return null;
+    }
+
 
     private void close(Connection conn){            // conn.close try-catch문 함수화
         try {
