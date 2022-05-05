@@ -2,7 +2,7 @@ package spring.basic.demo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import spring.basic.demo.domain.Store;
-import spring.basic.demo.repository.StoreRepositoryInterface;
+import spring.basic.demo.repository.BoardRepositoryInterface;
 
 import java.util.List;
 
@@ -10,10 +10,10 @@ import java.util.List;
 public class BoardService {
 
     // ---------------- 맛집관련 서비스 -----------------------
-    private StoreRepositoryInterface repository;
+    private BoardRepositoryInterface repository;
 
     @Autowired
-    public BoardService(StoreRepositoryInterface repository){         // service에서 repository 연결하는 느낌
+    public BoardService(BoardRepositoryInterface repository){         // service에서 repository 연결하는 느낌
         this.repository = repository;                               // 사용자는 repository에 접근 하지 못하고 service까지에만 접근이
                                                                     // 가능하도록 구현하기 위하여 service에서 repository를 한번더 감싼 느낌
     }
@@ -34,6 +34,6 @@ public class BoardService {
     }
     
     // ---------------- 숙소관련 서비스 -----------------------
-    
+
     
 }
