@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>찾은 장소 정보</title>
+</head>
+<body>
+    <p th:text="'ID : '+${member.id}"></p>   <!-- ""안에 ''사용하여 메세지 출력과 thymeleaf사용하여 값 출력 , member는 controller에서 설정한 객체 이름 -->
+    <p th:text="'장소이름 : '+${member.name}"></p>
+    <p th:text="'장소위치 : '+${member.location}"></p>
+    <p th:text="'메모 : '+${member.content}"></p>
+    <p th:text="'태그 : '+${member.tag}"></p><hr>
+
+</body>
+</html>
