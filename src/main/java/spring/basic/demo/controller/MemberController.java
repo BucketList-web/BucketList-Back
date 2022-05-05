@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import spring.basic.demo.domain.Member;
 import spring.basic.demo.service.MemberService;
 
+import java.util.List;
+
 
 @Controller      //spring bean 사용하여 따로 설정했으므로 삭제해야함
 public class MemberController {
@@ -59,14 +61,13 @@ public class MemberController {
         return "members/findMember";
     }
 
-    @PostMapping("members/allfind")
-    public String allfind(Member model){
-        // Service를 통해서 id로 member를 찾아서
 
-        Member m = service.findall(model);
+    @GetMapping("members/findall")
+    public String datalist(Model model){
+        List<Member> data = service.findAll();
+        model.addAttribute("data",data);
 
-        // 다음 페이지로 이동
-        return "members/findMember";
+        return "members/findall";
     }
 
 }
