@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import spring.basic.demo.domain.Member;
 import spring.basic.demo.repository.MemberRepositoryInterface;
 
+import java.util.List;
+
 // @Service     spring bean 사용하여 따로 설정했으므로 삭제해야함
 public class MemberService {
 
@@ -27,7 +29,8 @@ public class MemberService {
         return repository.findById(id);
     }
 
-    public Member findall(Member m){
-        return m;
+    public List<Member> findAll(){
+
+        return repository.findAll();            // repository에 findAll 함수 호출
     }
 }
