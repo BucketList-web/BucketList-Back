@@ -1,12 +1,21 @@
 package spring.basic.demo.domain;
 
-public class Member {
+public class Store {
 
     private int id;
     private String name;
     private String location;
     private String menu;
     private int price;
+    private String tag;
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
 
     public String getLocation() {
         return location;
