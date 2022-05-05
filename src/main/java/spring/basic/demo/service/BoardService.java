@@ -2,6 +2,7 @@ package spring.basic.demo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import spring.basic.demo.domain.Lodging;
+import spring.basic.demo.domain.Place;
 import spring.basic.demo.domain.Store;
 import spring.basic.demo.repository.BoardRepositoryInterface;
 
@@ -53,4 +54,20 @@ public class BoardService {
         return repository.findlodgingAll();            // repository에 findAll 함수 호출
     }
 
+
+    // ---------------- 장소 관련 서비스 -----------------------
+    public void createPlace(Place m){                 // join == (repository)saveMember
+
+        repository.saveplace(m);
+    }
+
+    public Place showPlaceById(int id){       // findMemberBuId == (repository)findById
+
+        return repository.findplaceById(id);
+    }
+
+    public List<Place> showPlaceAll(){
+
+        return repository.findplaceAll();            // repository에 findAll 함수 호출
+    }
 }
