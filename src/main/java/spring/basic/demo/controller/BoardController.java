@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import spring.basic.demo.domain.Lodging;
 import spring.basic.demo.domain.Store;
 import spring.basic.demo.service.BoardService;
 
@@ -22,15 +23,16 @@ public class BoardController {
         this.service = service;
     }
 
+    // ------------- 맛집 부분 --------------
     @GetMapping("store/new")
-    public String createMember(){
+    public String createStore(){
 
         return "store/StorecreateForm";
     }
 
     // URL 이 변경되지 않은 상태에서 실행
     @PostMapping("store/new")
-    public String create(@RequestParam("name") String name,@RequestParam("location") String location,@RequestParam("menu") String menu,@RequestParam("price") int price,@RequestParam("tag") String tag ){
+    public String createStoreData(@RequestParam("name") String name,@RequestParam("location") String location,@RequestParam("menu") String menu,@RequestParam("price") int price,@RequestParam("tag") String tag ){
 
         Store m = new Store();
         m.setName(name);
@@ -39,21 +41,21 @@ public class BoardController {
         m.setPrice(price);
         m.setTag(tag);
         //DB에 입력한 값을 넣어야 해요.
-        service.join(m);
+        service.createStore(m);
 
         return "redirect:/";    // 제일 첫 페이지로 돌아감
     }
 
     @GetMapping("store/find")
-    public String findMember(){
+    public String findStore(){
 
         return "store/StorefindForm";
     }
 
     @PostMapping("store/find")
-    public String find(@RequestParam("id")int id, Model model){
+    public String findStoreData(@RequestParam("id")int id, Model model){
         // Service를 통해서 id로 member를 찾아서
-        Store m = service.findMemberBuId(id);
+        Store m = service.showStoreById(id);
 
         // 찾은 객체를 통재로 다음 페이지로 넘김
         model.addAttribute("member",m);  // member라는 상자에 m객체를 넣어서 보내줌
@@ -64,11 +66,61 @@ public class BoardController {
 
 
     @GetMapping("store/findall")
-    public String datalist(Model model){
-        List<Store> data = service.findAll();
+    public String findStoreAll(Model model){
+        List<Store> data = service.showStoreAll();
         model.addAttribute("data",data);
 
         return "store/Storefindall";
     }
 
+
+    // ------------- 숙소 부분 --------------
+    @GetMapping("lodging/new")
+    public String createLodging(){
+
+        return "lodging/LodgingcreateForm";
+    }
+
+    // URL 이 변경되지 않은 상태에서 실행
+    @PostMapping("lodging/new")
+    public String createLodgingData(@RequestParam("name") String name,@RequestParam("location") String location,@RequestParam("content") String content,@RequestParam("price") int price,@RequestParam("tag") String tag ){
+
+        Lodging m = new Lodging();
+        m.setName(name);
+        m.setLocation(location);
+        m.setContent(content);
+        m.setPrice(price);
+        m.setTag(tag);
+        //DB에 입력한 값을 넣어야 해요.
+        service.createLodging(m);
+
+        return "redirect:/";    // 제일 첫 페이지로 돌아감
+    }
+
+    @GetMapping("lodging/find")
+    public String findLodging(){
+
+        return "lodging/LodgingfindForm";
+    }
+
+    @PostMapping("lodging/find")
+    public String findLodgingData(@RequestParam("id")int id, Model model){
+        // Service를 통해서 id로 member를 찾아서
+        Lodging m = service.showLodgingById(id);
+
+        // 찾은 객체를 통재로 다음 페이지로 넘김
+        model.addAttribute("member",m);  // member라는 상자에 m객체를 넣어서 보내줌
+
+        // 다음 페이지로 이동
+        return "lodging/LodgingfindMember";
+    }
+
+
+    @GetMapping("lodging/findall")
+    public String findLodgingAll(Model model){
+        List<Lodging> data = service.showLodgingAll();
+        model.addAttribute("data",data);
+
+        return "lodging/Lodgingfindall";
+    }
 }
