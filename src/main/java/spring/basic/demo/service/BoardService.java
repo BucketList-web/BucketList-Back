@@ -1,6 +1,7 @@
 package spring.basic.demo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import spring.basic.demo.domain.Lodging;
 import spring.basic.demo.domain.Place;
 import spring.basic.demo.domain.Store;
@@ -8,7 +9,7 @@ import spring.basic.demo.repository.BoardRepositoryInterface;
 
 import java.util.List;
 
-// @Service     spring bean 사용하여 따로 설정했으므로 삭제해야함
+@Service     //spring bean 사용하여 따로 설정했으므로 삭제해야함
 public class BoardService {
 
     private BoardRepositoryInterface repository;
@@ -39,35 +40,35 @@ public class BoardService {
 
     // ---------------- 숙소관련 서비스 -----------------------
 
-    public void createLodging(Lodging m){                 // join == (repository)saveMember
-
-        repository.savelodging(m);
-    }
-
-    public Lodging showLodgingById(int id){       // findMemberBuId == (repository)findById
-
-        return repository.findlodgingById(id);
-    }
-
-    public List<Lodging> showLodgingAll(){
-
-        return repository.findlodgingAll();            // repository에 findAll 함수 호출
-    }
-
-
-    // ---------------- 장소 관련 서비스 -----------------------
-    public void createPlace(Place m){                 // join == (repository)saveMember
-
-        repository.saveplace(m);
-    }
-
-    public Place showPlaceById(int id){       // findMemberBuId == (repository)findById
-
-        return repository.findplaceById(id);
-    }
-
-    public List<Place> showPlaceAll(){
-
-        return repository.findplaceAll();            // repository에 findAll 함수 호출
-    }
+//    public void createLodging(Lodging m){                 // join == (repository)saveMember
+//
+//        repository.savelodging(m);
+//    }
+//
+//    public Lodging showLodgingById(int id){       // findMemberBuId == (repository)findById
+//
+//        return repository.findlodgingById(id);
+//    }
+//
+//    public List<Lodging> showLodgingAll(){
+//
+//        return repository.findlodgingAll();            // repository에 findAll 함수 호출
+//    }
+//
+//
+//    // ---------------- 장소 관련 서비스 -----------------------
+//    public void createPlace(Place m){                 // join == (repository)saveMember
+//
+//        repository.saveplace(m);
+//    }
+//
+//    public Place showPlaceById(int id){       // findMemberBuId == (repository)findById
+//
+//        return repository.findplaceById(id);
+//    }
+//
+//    public List<Place> showPlaceAll(){
+//
+//        return repository.findplaceAll();            // repository에 findAll 함수 호출
+//    }
 }
