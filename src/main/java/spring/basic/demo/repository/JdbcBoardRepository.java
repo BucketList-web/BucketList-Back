@@ -1,6 +1,7 @@
-package spring.basic.demo.repository;
+/*package spring.basic.demo.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import spring.basic.demo.domain.Lodging;
 import spring.basic.demo.domain.Place;
 import spring.basic.demo.domain.Store;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // h2 DB연결 부분
-// @Repository     spring bean 사용하여 따로 설정했으므로 삭제해야함
+//@Repository     //spring bean 사용하여 따로 설정했으므로 삭제해야함
 public class JdbcBoardRepository implements BoardRepositoryInterface {
 
     // ------------ 맛집 부분 -----------
@@ -41,10 +42,10 @@ public class JdbcBoardRepository implements BoardRepositoryInterface {
             pstmt = conn.prepareStatement(sql);
 
 
-            m.setId(index++);               // setId 설정       현재 게시글 순서를 맞추기 위해 기본키 값을 설정하는 곳으로 로그인 완성되면
+            m.setStoreid(index++);               // setId 설정       현재 게시글 순서를 맞추기 위해 기본키 값을 설정하는 곳으로 로그인 완성되면
             //                    아이디를 키값으로 받아올거기 때문에 아이디로 변경해주면 됨.
 
-            pstmt.setInt(1,m.getId());      // 첫번째  칸에 id 저장
+            pstmt.setInt(1,m.getStoreid());      // 첫번째  칸에 id 저장
             pstmt.setString(2,m.getName());     // 두번째 칸에 이름 저장
             pstmt.setString(3,m.getLocation());
             pstmt.setString(4,m.getMenu());
@@ -80,7 +81,7 @@ public class JdbcBoardRepository implements BoardRepositoryInterface {
 
             if(rs.next()){          // rs객체에 값이 없다면
                 Store m = new Store();            // member클래스 불러옴
-                m.setId(rs.getInt("id"));   // m객체의 id값 저장
+                m.setStoreid(rs.getInt("id"));   // m객체의 id값 저장
                 m.setName(rs.getString("name"));    // m객체의 name값 저장
                 m.setLocation(rs.getString("location"));
                 m.setMenu(rs.getString("menu"));
@@ -118,7 +119,7 @@ public class JdbcBoardRepository implements BoardRepositoryInterface {
 
             while(rs.next()){          // rs객체에 결과값이 있다면(모든 데이터를 출력하기 위해 while 사용)
                 Store m = new Store();            // member클래스 불러옴
-                m.setId(rs.getInt("id"));   // m객체의 id값 저장
+                m.setStoreid(rs.getInt("id"));   // m객체의 id값 저장
                 m.setName(rs.getString("name"));    // m객체의 name값 저장
                 m.setLocation(rs.getString("location"));
                 m.setMenu(rs.getString("menu"));
@@ -373,3 +374,4 @@ public class JdbcBoardRepository implements BoardRepositoryInterface {
         }
     }
 }
+*/
