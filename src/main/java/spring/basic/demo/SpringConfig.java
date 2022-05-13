@@ -1,3 +1,4 @@
+/*
 package spring.basic.demo;
 
 import org.springframework.context.annotation.Bean;
@@ -32,3 +33,4 @@ public class SpringConfig {
         return new JdbcBoardRepository(dataSource);                  // JdbcMemberRepository()이다. repository는 DB에서 데이터를 가져옴
     }
 }
+*/
