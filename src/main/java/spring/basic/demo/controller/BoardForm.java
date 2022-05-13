@@ -1,49 +1,51 @@
 package spring.basic.demo.controller;
 
+
 public class BoardForm {
-    private String storename;
-    private String storelocation;
-    private String storemenu;
-    private int storeprice;
-    private String storetag;
 
-    public String getStorename() {
-        return storename;
+    private String communitytag;        // 태그
+    private String communitykind;       // 종류
+    private String communitylocation;   // 위치,장소
+    private String communitycontent;     // 내용
+    private String communityprice;      // 비용
+
+    public String getCommunitytag() {
+        return communitytag;
     }
 
-    public void setStorename(String storename) {
-        this.storename = storename;
+    public void setCommunitytag(String communitytag) {
+        this.communitytag = communitytag;
     }
 
-    public String getStorelocation() {
-        return storelocation;
+    public String getCommunitykind() {
+        return communitykind;
     }
 
-    public void setStorelocation(String storelocation) {
-        this.storelocation = storelocation;
+    public void setCommunitykind(String communitykind) {
+        this.communitykind = communitykind;
     }
 
-    public String getStoremenu() {
-        return storemenu;
+    public String getCommunitylocation() {
+        return communitylocation;
     }
 
-    public void setStoremenu(String storemenu) {
-        this.storemenu = storemenu;
+    public void setCommunitylocation(String communitylocation) {
+        this.communitylocation = communitylocation;
     }
 
-    public int getStoreprice() {
-        return storeprice;
+    public String getCommunitycontent() {
+        return communitycontent;
     }
 
-    public void setStoreprice(int storeprice) {
-        this.storeprice = storeprice;
+    public void setCommunitycontent(String communitycontent) {
+        this.communitycontent = communitycontent;
     }
 
-    public String getStoretag() {
-        return storetag;
+    public String getCommunityprice() {
+        return communityprice;
     }
 
-    public void setStoretag(String storetag) {
-        this.storetag = storetag;
+    public void setCommunityprice(String communityprice) {
+        this.communityprice = communityprice;
     }
 }
