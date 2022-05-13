@@ -1,49 +1,49 @@
 package spring.basic.demo.domain;
 
 public class Place {
-    private int id;
-    private String location;
-    private String name;
-    private String content;
-    private String tag;
+    private int placeid;
+    private String placelocation;
+    private String placename;
+    private String placecontent;
+    private String placetag;
 
-    public int getId() {
-        return id;
+    public int getPlaceid() {
+        return placeid;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setPlaceid(int placeid) {
+        this.placeid = placeid;
     }
 
-    public String getLocation() {
-        return location;
+    public String getPlacelocation() {
+        return placelocation;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setPlacelocation(String placelocation) {
+        this.placelocation = placelocation;
     }
 
-    public String getName() {
-        return name;
+    public String getPlacename() {
+        return placename;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPlacename(String placename) {
+        this.placename = placename;
     }
 
-    public String getContent() {
-        return content;
+    public String getPlacecontent() {
+        return placecontent;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setPlacecontent(String placecontent) {
+        this.placecontent = placecontent;
     }
 
-    public String getTag() {
-        return tag;
+    public String getPlacetag() {
+        return placetag;
     }
 
-    public void setTag(String tag) {
-        this.tag = tag;
+    public void setPlacetag(String placetag) {
+        this.placetag = placetag;
     }
 }

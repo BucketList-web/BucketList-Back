@@ -1,58 +1,58 @@
 package spring.basic.demo.domain;
 
 public class Lodging {
-    private int id;
-    private String location;
-    private String name;
-    private int price;
-    private String content;
-    private String tag;
+    private int lodgingid;
+    private String lodginglocation;
+    private String lodgingname;
+    private int lodgingprice;
+    private String lodgingcontent;
+    private String lodgingtag;
 
-    public int getId() {
-        return id;
+    public int getLodgingid() {
+        return lodgingid;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setLodgingid(int lodgingid) {
+        this.lodgingid = lodgingid;
     }
 
-    public String getLocation() {
-        return location;
+    public String getLodginglocation() {
+        return lodginglocation;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setLodginglocation(String lodginglocation) {
+        this.lodginglocation = lodginglocation;
     }
 
-    public String getName() {
-        return name;
+    public String getLodgingname() {
+        return lodgingname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLodgingname(String lodgingname) {
+        this.lodgingname = lodgingname;
     }
 
-    public int getPrice() {
-        return price;
+    public int getLodgingprice() {
+        return lodgingprice;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setLodgingprice(int lodgingprice) {
+        this.lodgingprice = lodgingprice;
     }
 
-    public String getContent() {
-        return content;
+    public String getLodgingcontent() {
+        return lodgingcontent;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setLodgingcontent(String lodgingcontent) {
+        this.lodgingcontent = lodgingcontent;
     }
 
-    public String getTag() {
-        return tag;
+    public String getLodgingtag() {
+        return lodgingtag;
     }
 
-    public void setTag(String tag) {
-        this.tag = tag;
+    public void setLodgingtag(String lodgingtag) {
+        this.lodgingtag = lodgingtag;
     }
 }
