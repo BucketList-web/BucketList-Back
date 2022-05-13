@@ -2,62 +2,58 @@ package spring.basic.demo.domain;
 
 public class Store {
 
-    private int id;
-    private String name;
-    private String location;
-    private String menu;
-    private int price;
-    private String tag;
+    private int storeid;
+    private String storename;
+    private String storelocation;
+    private String storemenu;
+    private int storeprice;
+    private String storetag;
 
-    public String getTag() {
-        return tag;
+    public int getStoreid() {
+        return storeid;
     }
 
-    public void setTag(String tag) {
-        this.tag = tag;
+    public void setStoreid(int storeid) {
+        this.storeid = storeid;
     }
 
-    public String getLocation() {
-        return location;
+    public String getStorename() {
+        return storename;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setStorename(String storename) {
+        this.storename = storename;
     }
 
-    public String getMenu() {
-        return menu;
+    public String getStorelocation() {
+        return storelocation;
     }
 
-    public void setMenu(String menu) {
-        this.menu = menu;
+    public void setStorelocation(String storelocation) {
+        this.storelocation = storelocation;
     }
 
-    public int getPrice() {
-        return price;
+    public String getStoremenu() {
+        return storemenu;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setStoremenu(String storemenu) {
+        this.storemenu = storemenu;
     }
 
-    public int getId() {
-
-        return id;
+    public int getStoreprice() {
+        return storeprice;
     }
 
-    public void setId(int id) {
-
-        this.id = id;
+    public void setStoreprice(int storeprice) {
+        this.storeprice = storeprice;
     }
 
-    public String getName() {
-
-        return name;
+    public String getStoretag() {
+        return storetag;
     }
 
-    public void setName(String name) {
-
-        this.name = name;
+    public void setStoretag(String storetag) {
+        this.storetag = storetag;
     }
 }
