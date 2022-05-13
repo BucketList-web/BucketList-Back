@@ -78,6 +78,7 @@ public class JdbcTemplateRepository implements BoardRepositoryInterface {
                 m.setCommunitycontent(rs.getString("content"));
                 m.setCommunityprice(rs.getString("price"));
 
+
                 return m;
             }
         };
