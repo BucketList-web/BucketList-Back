@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+    <style>
+ .container {
+ max-width: 560px;
+ }
+ </style>
+</head>
+<body>
+<div class="container">
+    <div class="py-5 text-center">
+        <h2>게시글 살펴보기</h2>
+    </div>
+    <div>
+        <textarea rows="5" id="text" name="text" class="form-control" th:value="${board.text}" th:text="${board.text}" readonly></textarea>
+
+    </div>
+    <div>
+        <label for="cost">비용</label>
+        <input type="text" id="cost" name="cost" class="form-control" th:value="${board.cost}"
+               readonly>
+    </div>
+    <div>
+        <label for="party">인원수</label>
+        <input type="text" id="party" name="party"  th:value="${board.party}" class="form-control" readonly>
+    </div>
+
+    <hr class="my-4">
+    <div class="row">
+        <div class="col">
+            <button class="w-100 btn btn-primary btn-lg"
+                    th:onclick="|location.href='@{/board/edit/{number}/(number=${board.number})}'|"
+                    type="button">게시글 수정</button>
+        </div>
+        <div class="col">
+            <button class="w-100 btn btn-secondary btn-lg"
+                    th:onclick="|location.href='@{/board}'|"
+
+                    type="button">목록으로</button>
+        </div>
+    </div>
+    <hr class="my-4">
+    <h4>답글</h4>
+    <div>
+        <textarea rows="5" id="comment_text" name="comment_text" class="form-control"  ></textarea>
+        <button class="w-100 btn btn-primary btn-lg"
+                th:onclick="|location.href='@{/board/edit/{number}/(number=${board.number})}'|"
+                type="button">답글 달기</button>
+    </div>
+</div> <!-- /container -->
+</body>
+</html>
