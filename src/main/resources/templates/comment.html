@@ -15,10 +15,10 @@
     <div class="py-5 text-center">
         <h2>답글 </h2>
     </div>
-    <form  th:action="@{|/board/comment/${number}|}" method="post">
+    <form  th:action method="post">
 
         <div>
-            <input type="hidden" id="number" name="number" th:value="${number}" />
+            <input type="hidden" id="number" name="number" th:value="${board.number}" />
             <textarea rows="5" id="comment_text" name="comment_text" class="form-control"  ></textarea>
         </div>
 
