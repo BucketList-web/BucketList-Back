@@ -13,6 +13,7 @@ import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -47,8 +48,8 @@ public class CommentRepositoryImpl implements CommentRepository{
     }
 
     @Override
-    public Comment oneContentList(int number) {
-        return null;
+    public List<Comment> oneContentList(int number) {
+        return  jdbcTemplate.query("select * from comment where comment_idx =?", boardRowMapper(), number);
     }
 
     private RowMapper<Comment> boardRowMapper (){

@@ -1,7 +1,9 @@
 package bucket.list.controller;
 
 import bucket.list.domain.Board;
+import bucket.list.domain.Comment;
 import bucket.list.service.BoardService;
+import bucket.list.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,10 +16,15 @@ import java.util.List;
 public class BoardController {
 
     private final BoardService boardService;
+    private final CommentService commentService;
+
+
 
     @Autowired
-    public BoardController(BoardService boardService) {
+    public BoardController(BoardService boardService,CommentService commentService) {
         this.boardService = boardService;
+        this.commentService = commentService;
+
     }
 
     @GetMapping
@@ -40,7 +47,8 @@ public class BoardController {
     public String add(@ModelAttribute("board") Board board){
         boardService.save(board);
 
-        return "redirect:/board/items";
+
+        return "redirect:/board";
     }
     @GetMapping("{number}")
     //전체게시글에서 하나의 게시글 클릭시 하나의게시글보여주는 메서드
@@ -48,7 +56,9 @@ public class BoardController {
 
         Board board = boardService.oneContentList(number);
 
+
         model.addAttribute("board", board);
+
 
         return "item";
     }
@@ -65,4 +75,6 @@ public class BoardController {
         boardService.updateContentInfo(board);
         return "redirect:/board/{number}";
     }
+
+
 }
