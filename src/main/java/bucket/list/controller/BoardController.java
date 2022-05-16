@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/board")
+@RequestMapping("/board/{board_info_idx}")
 public class BoardController {
 
     private final BoardService boardService;
