@@ -44,18 +44,18 @@ public class CommentController {
         comment.setComment_text(comment_text);
         commentService.save(comment);
 
-        return "redirect:/board/commentList/{number}";
+        return "redirect:/board/{number}";
     }
-    @GetMapping("/commentList/{number}")
-    public String commentList(@PathVariable("number") int number, Model model){
-        List<Comment> comments = commentService.oneContentList(number);
-
-        model.addAttribute("comments", comments);
-
-        System.out.println("number = " + number);
-        return "comment_list";
-
-    }
+//    @GetMapping("/commentList/{number}")
+//    public String commentList(@PathVariable("number") int number, Model model){
+//        List<Comment> comments = commentService.oneContentList(number);
+//
+//        model.addAttribute("comments", comments);
+//
+//
+//        return "comment_list";
+//
+//    }
 
 
 }

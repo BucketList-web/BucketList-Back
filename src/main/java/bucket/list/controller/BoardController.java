@@ -55,7 +55,9 @@ public class BoardController {
     public String item(@PathVariable int number, Model model){
 
         Board board = boardService.oneContentList(number);
+        List<Comment> comments = commentService.oneContentList(number);
 
+        model.addAttribute("comments", comments);
 
         model.addAttribute("board", board);
 

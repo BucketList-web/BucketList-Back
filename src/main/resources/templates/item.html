@@ -46,9 +46,12 @@
     <hr class="my-4">
     <h4>답글</h4>
     <div>
-        <textarea rows="5" id="comment_text" name="comment_text" class="form-control"  ></textarea>
+        <h2>댓글리스트</h2>
+        <div th:each="comment : ${comments}">
+            <textarea rows="5" class="form-control" th:value="${comment.comment_text}" th:text="${comment.comment_text}" readonly></textarea>
+        </div>
         <button class="w-100 btn btn-primary btn-lg"
-                th:onclick="|location.href='@{/board/edit/{number}/(number=${board.number})}'|"
+                th:onclick="|location.href='@{/board/comment/{number}/(number=${board.number})}'|"
                 type="button">답글 달기</button>
     </div>
 </div> <!-- /container -->
