@@ -11,6 +11,7 @@
 <p th:text="'가게위치 : '+${member.communitylocation}"></p>
 <p th:text="'내용 : '+${member.communitycontent}"></p>
 <p th:text="'가격 : '+${member.communityprice}"></p>
-
+<button><a th:href="@{/community/edit/{id}(id=${member.communityid})}">수정</a></button>
+<button><a th:href="@{/community/delete/{id}(id=${member.communityid})}">삭제</a></button>
 </body>
 </html>
