@@ -10,7 +10,7 @@ public interface BoardRepositoryInterface { // service로 함수 보냄
     void writecommunity(Community m);
     Community findcommunityById(int id);
     List<Community> findcommunityAll();
-
-
+    void communitymodify(Community community);
+    void communitydelete(Community community);
 //    List<Data> findDataAll();   // 모든 데이터 출력
 }
