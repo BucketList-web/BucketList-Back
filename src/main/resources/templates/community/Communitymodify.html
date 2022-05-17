@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>맛집 찾기</title>
+</head>
+<body>
+<form th:action="@{/community/modify/{id}(id=${data.communityid})}" method="post">
+    <!--    <input type="file" name="file" th:value="@{${data.storefilepath}}"><br> -->
+    이미지 :<br>
+    태그 : <input type="text" name="communitytag" th:value="${data.communitytag}">  <br>
+    종류 :<select name ="communitykind" >
+        <option value="운동">운동</option>
+        <option value="여행">여행</option>
+        <option value="레저스포츠">레저스포츠</option>
+        <option value="맛집">맛집</option>
+        <option value="그 외">그 외</option><br>
+    </select>
+    가게위치 : <input type="text" name="communitylocation" th:value="${data.communitylocation}">  <br>
+    내용 : <input type="text" name="communitycontent" th:value="${data.communitycontent}">  <br>
+    비용 : <input type="text" name="communityprice" th:value="${data.communityprice}">  <br>
+    <input type="submit" value="수정">
+                               <!--<input type="text" name="communitykind">  <br>-->
+
+</form>
+</body>
+</html>
