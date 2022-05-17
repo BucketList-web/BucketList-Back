@@ -18,7 +18,6 @@ public class BoardService {
         // 가능하도록 구현하기 위하여 service에서 repository를 한번더 감싼 느낌
     }
 
-    // ---------------- 맛집관련 서비스 -----------------------
 
     public void createCommunity(Community m){                 // join == (repository)saveMember
 
@@ -34,4 +33,19 @@ public class BoardService {
 
         return repository.findcommunityAll();            // repository에 findAll 함수 호출
     }
+
+    public void commumitymodify(Community community) {
+        repository.communitymodify(community);
+    }
+
+    public void communitydelete(Community community){
+        repository.communitydelete(community);
+    }
+
+//   public void commumitywrite(Community m){
+//        repository.writecommunity(m);
+//    }
+
+
+
 }
