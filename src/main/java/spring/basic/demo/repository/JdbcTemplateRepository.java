@@ -18,7 +18,6 @@ import java.util.Map;
 public class JdbcTemplateRepository implements BoardRepositoryInterface {
 
 
-    // ------------ 맛집 부분 -----------
 
     // JdbcTemplate 사용하여 Repository 작성
     private JdbcTemplate jdbcTemplate;
@@ -40,7 +39,7 @@ public class JdbcTemplateRepository implements BoardRepositoryInterface {
         parameters.put("location", m.getCommunitylocation());
         parameters.put("content", m.getCommunitycontent());
         parameters.put("price", m.getCommunityprice());
-
+        parameters.put("createdate", m.getCommunitydate());
 
         jdbcInsert.execute(parameters);
         //jdbcInsert.executeAndReturnKey(new MapSqlParameterSource((parameters)));   // ID(기본키)를 자동으로 생성하기 위한 구문
@@ -56,6 +55,15 @@ public class JdbcTemplateRepository implements BoardRepositoryInterface {
     @Override
     public List<Community> findcommunityAll() {
         return jdbcTemplate.query("SELECT *FROM community",communityRowMapper());
+    }
+
+
+    public void communitymodify(Community community) {
+        jdbcTemplate.update("update community set tag = ?, kind = ?, location = ?, content = ?, price =? where id = ?",community.getCommunitytag(),community.getCommunitykind(),community.getCommunitylocation(), community.getCommunitycontent(), community.getCommunityprice(),community.getCommunityid());
+    }
+
+    public void communitydelete(Community community) {
+        jdbcTemplate.update("delete from community where id = ?",community.getCommunityid());
     }
 
     // select 했을때 사용할 결과 행들
