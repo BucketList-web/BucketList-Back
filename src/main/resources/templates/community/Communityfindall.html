@@ -17,15 +17,16 @@
     </tr>
     </thead>
     <tbody>
-         <!-- imformation 변수안에 data를 for:each문을 통해 모든 값을 반복하여 넣는다. -->
-         <tr th:each ="imformation : ${data}">
+    <!-- imformation 변수안에 data를 for:each문을 통해 모든 값을 반복하여 넣는다. -->
+    <tr th:each ="imformation : ${data}">
         <td th:text="${imformation.communityid}"></td>      <!-- imformation변수안에 id값을 넣는다. -->
-        <td th:text="${imformation.communitytag}"></td>      <!-- imformation변수 안에 name값을 넣는다. -->
+        <td>
+            <a th:text="${imformation.communitytag}" th:href="@{/community/finddetail(id=${imformation.communityid})}"></a>
+        </td>      <!-- imformation변수 안에 name값을 넣는다. -->
         <td th:text="${imformation.communitykind}"></td>
         <td th:text="${imformation.communitylocation}"></td>
         <td th:text="${imformation.communitycontent}"></td>
         <td th:text="${imformation.communityprice}"></td>
-
     </tr>
     </tbody>
 </table>
