@@ -62,7 +62,12 @@ public class AboutRepositoryImpl implements AboutRepository{
 
     @Override
     public List<About> allContentList() {
-        return jdbcTemplate.query("select *  from about", aboutRowMapper());
+        return jdbcTemplate.query("select *  from about order by about_number desc", aboutRowMapper());
+    }
+
+    @Override
+    public About oneContentList(int about_number) {
+        return jdbcTemplate.query("select * from about where about_number =?", aboutRowMapper(), about_number).get(0);
     }
 
 
