@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link href="../css/bootstrap.min.css"
+          th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <style>
+ .container {
+ max-width: 560px;
+ }
+ </style>
+</head>
+<body>
+<div class="container">
+    <div class="py-5 text-center">
+        <h2>게시글 수정 </h2>
+    </div>
+    <form  th:action method="post">
+
+        <div>
+            <textarea rows="5" id="text" name="text" class="form-control" th:value="${board.text}" th:text="${board.text}" ></textarea>
+        </div>
+        <div>
+            <label for="cost">비용</label>
+            <input type="text" id="cost" name="cost" class="form-control" th:value="${board.cost}"
+                   >
+        </div>
+        <div>
+            <label for="party">인원수</label>
+            <input type="text" id="party" name="party"  th:value="${board.party}" class="form-control" >
+        </div>
+        <div>
+
+        </div>
+        <hr class="my-4">
+        <div class="row">
+            <div class="col">
+                <button class="w-100 btn btn-primary btn-lg" type="submit">저장
+                </button>
+            </div>
+            <div class="col">
+                <button class="w-100 btn btn-secondary btn-lg"
+                        onclick="location.href='item.html'"
+                        th:onclick="|location.href='@{/board/{number}(number=${board.number})}'|"
+                        type="button">취소</button>
+            </div>
+        </div>
+    </form>
+</div> <!-- /container -->
+</body>
+</html>
