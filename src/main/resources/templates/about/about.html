@@ -31,10 +31,13 @@
                 </thead>
                 <tbody>
                 <tr th:each="about_item : ${about_items}">
-                    <td class="text-center d-none d-md-table-cell" th:text="${about_item.about_subject}">10</td>
-                    <td><a href='board_read.html' th:text="${about_item.about_subject}">글 제목 입니다</a></td>
-                    <td class="text-center d-none d-md-table-cell" th:text="${about_item.about_subject}">홍길동</td>
-                    <td class="text-center d-none d-md-table-cell" th:text="${about_item.about_subject}">2018-12-12</td>
+                    <td class="text-center d-none d-md-table-cell" th:text="${about_item.about_number}">글번호</td>
+                    <!--질의할부분-->
+<!--                    <input type="hidden" th:text="${about_item.about_text}">-->
+<!--                    <input type="hidden" th:text="${about_item.about_file}">-->
+                    <td><a th:href="@{|/menu/${board_info_idx.board_info_idx}/${about_item.about_number}/read|}"><span th:text="${about_item.about_subject}">글 제목 입니다</span></a></td>
+                    <td class="text-center d-none d-md-table-cell" th:text="${about_item.about_writer}">작성자</td>
+                    <td class="text-center d-none d-md-table-cell" th:text="${about_item.about_date}">작성일</td>
 
                 </tr>
                 </tbody>
