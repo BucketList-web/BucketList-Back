@@ -27,4 +27,10 @@ public class AboutService {
         List<About> about_items = aboutRepository.allContentList();
         return about_items;
     }
+
+    public About oneContentList(int about_number) {
+        About about = aboutRepository.oneContentList(about_number);
+
+        return about;
+    }
 }
