@@ -7,10 +7,7 @@ import bucket.list.service.AboutService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -56,6 +53,17 @@ public class AboutController {
         return "redirect:/menu/{board_info_idx}";
 
     }
+    @GetMapping("/{about_number}/read")
+    //글읽는 페이지 메서드
+    public String read(@PathVariable int about_number, Model model ){
+
+        About about = aboutService.oneContentList(about_number);
+
+        model.addAttribute("about", about);
+
+        return "about/read";
+    }
+    
 
 
 

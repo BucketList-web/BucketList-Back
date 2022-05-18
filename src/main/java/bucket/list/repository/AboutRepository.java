@@ -10,4 +10,5 @@ public interface AboutRepository {
 
     List<About> allContentList();
 
+    About oneContentList(int about_number);
 }

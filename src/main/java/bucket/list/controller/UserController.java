@@ -10,6 +10,12 @@ public class LoginController {
 
     @GetMapping("/login")
     public String Login(){
-        return "login/login";
+        return "user/login";
+    }
+
+    @GetMapping("/create")
+    public String create(){
+
+        return "user/create";
     }
 }
