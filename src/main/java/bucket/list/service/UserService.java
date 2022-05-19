@@ -20,4 +20,9 @@ public class UserService {
         User save = userRepository.save(user);
         return save;
     }
+
+    public String exist(String user_id) {
+
+        if(user)
+    }
 }

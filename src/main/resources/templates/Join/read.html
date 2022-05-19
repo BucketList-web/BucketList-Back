@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>버킷리스트</title>
+    <!-- Bootstrap CDN -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+</head>
+<body class="d-flex flex-column">
+<main class="flex-shrink-0">
+    <!-- Navigation-->
+    <div th:replace="~{include/TopMenuService :: TopMenuService}"></div>
+    <!-- Page Content-->
+    <section class="py-5">
+        <div class="container px-5 my-5">
+            <div class="row gx-5">
+                <div class="col-lg-3">
+                    <div class="d-flex align-items-center mt-lg-5 mb-4">
+                        <div class="ms-3">
+                            <!-- 작성자 -->
+                            <div class="fw-bold">Valerie Luna</div>
+                            <!-- 메뉴 목록이름 -->
+                            <div class="text-muted">News, Business</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <!-- Post content-->
+                    <article>
+                        <!-- Post header-->
+                        <header class="mb-4">
+                            <!-- 제목 -->
+                            <h1 class="fw-bolder mb-1">Welcome to Blog Post!</h1>
+                            <!-- 작성일 -->
+                            <div class="text-muted fst-italic mb-2">January 1, 2022</div>
+                        </header>
+                        <!-- 파일업로드 -->
+                        <figure class="mb-4"><img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." /></figure>
+                        <!-- 글 작성 문단-->
+                        <section class="mb-5">
+                            <p class="fs-5 mb-4">Science is an enterprise that should be cherished as an activity of the free human mind. Because it transforms who we are, how we live, and it gives us an understanding of our place in the universe.</p>
+                        </section>
+                    </article>
+                    <!-- 댓글항목 -->
+                    <section>
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <!-- 댓글폼 -->
+                                <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea></form>
+                                <!-- Comment with nested comments-->
+                                <div class="d-flex mb-4">
+                                    <!-- Parent comment-->
+                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                                    <div class="ms-3">
+                                        <div class="fw-bold">Commenter Name</div>
+                                        If you'
+                                        <!-- Child comment 1-->
+                                        <div class="d-flex mt-4">
+                                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                                            <div class="ms-3">
+                                                <div class="fw-bold">Commenter Name</div>
+                                                And under those conditions,
+                                            </div>
+                                        </div>
+                                        <!-- Child comment 2-->
+                                        <div class="d-flex mt-4">
+                                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                                            <div class="ms-3">
+                                                <div class="fw-bold">Commenter Name</div>
+                                                When you put money directly to a problem,
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Single comment-->
+                                <div class="d-flex">
+                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                                    <div class="ms-3">
+                                        <div class="fw-bold">Commenter Name</div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<!-- Footer-->
+<div th:replace="~{include/BottomMenuService :: BottomMenuService}"></div>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+</body>
+</html>

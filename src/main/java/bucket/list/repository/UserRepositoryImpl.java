@@ -11,9 +11,8 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -48,6 +47,13 @@ public class UserRepositoryImpl implements UserRepository{
 
         return user;
     }
+
+    @Override
+    public String exist(String user_id) {
+
+        return jdbcTemplate.query("select user_name from user where user_id = ?" , userRowMapper(), user_id).get(0).toString();
+    }
+
 
     private RowMapper<User> userRowMapper(){
         return new RowMapper<User>() {

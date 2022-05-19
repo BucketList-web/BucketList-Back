@@ -34,7 +34,7 @@
                                 <div class="input-group">
                                     <input class="form-control" id="user_id" th:field="*{user_id}" type="text" placeholder="ID를 입력하세요"  />
                                     <div class="input-group-append">
-                                        <button type="button" class="btn btn-primary">중복확인</button>
+                                        <button type="button" class="btn btn-primary" th:onclick="|location.href='@{/user/exist/${user_id}'|">중복확인</button>
                                     </div>
                                 </div>
                                 <div th:errors="*{user_id}" style='color:red'>아이디 오류</div>

@@ -51,6 +51,16 @@ public class UserController {
         return "/user/create_success";
     }
 
+    @GetMapping("/exist/{user_id}")
+    //아이디중복확인 메서드
+    public String exist(@Valid @RequestParam("user_id") String user_id, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "/user/create";
+        }
+
+        return "/user/create";
+    }
+
     //비밀번호 일치여부 initbinder
     @InitBinder
     public void initBinder(WebDataBinder webDataBinder){
