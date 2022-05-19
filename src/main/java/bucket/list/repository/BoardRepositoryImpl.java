@@ -52,7 +52,7 @@ public class BoardRepositoryImpl implements BoardRepository{
     @Override
     //모든 게시물을 가져오는 메서드
     public List<Board> AllContentList() {
-        return jdbcTemplate.query("select * from board", boardRowMapper());
+        return jdbcTemplate.query("select * from board order by number desc", boardRowMapper());
     }
 
     @Override

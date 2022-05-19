@@ -24,6 +24,7 @@ public class TopMenuInterceptor implements HandlerInterceptor {
         List<BoardInfo> boardInfo = topMenuService.allInfoName();
         request.setAttribute("boardInfo", boardInfo);
 
+
         return true;
     }
 }
