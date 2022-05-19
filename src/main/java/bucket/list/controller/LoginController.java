@@ -2,25 +2,40 @@ package bucket.list.controller;
 
 import bucket.list.domain.CreateLogin;
 import bucket.list.domain.Login;
+import bucket.list.domain.User;
 import bucket.list.service.CreateLoginService;
+import bucket.list.service.LoginService;
+import bucket.list.service.UserService;
+import bucket.list.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.lang.reflect.Member;
 
 @Controller
 @RequestMapping(value="/user")
 public class LoginController {
 
+    private final LoginService service;
+
+    @Autowired
+    public LoginController(LoginService service){         // controller와 service 연결하는 느낌
+
+        this.service = service;
+    }
+
+
     @GetMapping("/login")
     public String Loginmain(){        // 로그인 메인
-        return "login/logintest";
+        return "user/logintest";
     }
 
     @PostMapping("/login")      // 로그인 값 입력
@@ -29,14 +44,14 @@ public class LoginController {
         logindata.setId(m.getId());
         logindata.setPw(m.getPw());
 
-        String logintest[] = {"aaa","bbb","ccc","ddd"};         // DB연결하기 전이라 일단 아이디는 배열에 저장
+        User userdata = service.showUserById(m.getId());
+        String dbpw = userdata.getUser_pw();
 
         int result = 0;                 // 입력받은 값과 배열의 값을 비교하기 위한 결과값
 
-        for(int i = 0; i<logintest.length; i++){
-            if(m.getId().equals(logintest[i])){
-                result = 1;
-            }
+
+        if(dbpw.equals(m.getPw())) {
+            result = 1;
         }
 
         if(result == 1){
@@ -65,10 +80,7 @@ public class LoginController {
                 return "/main/main"; // 다시 홈으로
             }
         }
-
-        else{
-            return "login/create";
-        }
+        return "user/login";
     }
 
 //    @GetMapping("/create")
@@ -91,43 +103,4 @@ public class LoginController {
         return "/main/main"; // 홈(home.html) 화면으로
     }
 
-
-    // ------------- 회원 가입 부분 --------
-    CreateLoginService service;
-    @Autowired
-    public LoginController(CreateLoginService service){         // controller와 service 연결하는 느낌
-
-        this.service = service;
-    }
-
-    @GetMapping("/create")
-    public String MemberCreate(){        // 회원가입 작성 폼
-
-        return "login/createlogintest";
-    }
-
-    // URL 이 변경되지 않은 상태에서 실행
-    @PostMapping("/create")       // 회원가입 데이터 저장
-    public String MemberCreateData(CreateLoginForm createLoginForm){
-
-
-        CreateLogin m = new CreateLogin();
-        m.setUser_id(createLoginForm.getUser_id());
-        m.setUser_pw(createLoginForm.getUser_pw());
-        m.setUser_email(createLoginForm.getUser_email());
-        m.setUser_name(createLoginForm.getUser_name());
-        m.setUser_phone(createLoginForm.getUser_phone());
-
-//        if(createLoginForm.getUser_id() == null && createLoginForm.getUser_pw() == null && createLoginForm.getUser_pwcorrect() ==null &&
-//        createLoginForm.getUser_email() ==null&& createLoginForm.getUser_name() ==null&& createLoginForm.getUser_phone()==null){
-//            return "Login/CreateLoginForm";
-//        }
-//        else {
-//            //DB에 입력한 값을 넣어야 해요.
-//            service.CreateLoginCreate(m);
-//            return "redirect:/";    // 제일 첫 페이지로 돌아감
-//        }
-        service.CreateLoginCreate(m);
-        return "/login/logintest";
-    }
 }
