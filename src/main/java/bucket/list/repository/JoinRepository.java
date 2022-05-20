@@ -1,18 +1,17 @@
 package bucket.list.repository;
 
-import bucket.list.domain.Board;
-import org.springframework.stereotype.Repository;
+import bucket.list.domain.Join;
 
 import java.util.List;
 
 
-public interface BoardRepository {
+public interface JoinRepository {
 
-    Board save(Board board);
+    Join save(Join join);
 
-    List<Board> AllContentList();
+    List<Join> AllContentList();
 
-    Board oneContentList(int number);
+    Join oneContentList(int number);
 
-   void updateContentInfo(Board board);
+   void updateContentInfo(Join join);
 }

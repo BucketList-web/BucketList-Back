@@ -8,7 +8,8 @@ import lombok.Setter;
 @Setter
 public class Comment {
 
-    private int comment_number;
-    private String comment_text;
     private int comment_idx;
+    private String comment_text;
+    private String comment_writer;
+    private int comment_number;
 }

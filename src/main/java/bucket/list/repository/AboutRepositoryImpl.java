@@ -36,6 +36,7 @@ public class AboutRepositoryImpl implements AboutRepository{
 
         Map<String, Object> parameters = new HashMap<>();
 
+//        작성일 날
         LocalDate now = LocalDate.now();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -63,6 +64,8 @@ public class AboutRepositoryImpl implements AboutRepository{
     @Override
     public List<About> allContentList() {
         return jdbcTemplate.query("select *  from about order by about_number desc", aboutRowMapper());
+//       return jdbcTemplate.query(
+//               "select a2.about_number, a2.about_subject, a1.user_name as about_writer, a2.about_date from user_table_proto a1, about a2 where a1.user_name = a2.about_writer order by about_number desc", aboutRowMapper());
     }
 
     @Override
