@@ -1,8 +1,8 @@
 package bucket.list.controller;
 
-import bucket.list.domain.Board;
 import bucket.list.domain.Comment;
-import bucket.list.service.BoardService;
+import bucket.list.domain.Join;
+import bucket.list.service.JoinService;
 import bucket.list.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,17 +13,17 @@ import java.util.List;
 
 @Controller
 //@RequestMapping("/menu/{board_info_idx}")
-@RequestMapping("/join/")
-public class BoardController {
+@RequestMapping("/join")
+public class JoinController {
 
-    private final BoardService boardService;
+    private final JoinService joinService;
     private final CommentService commentService;
 
 
 
     @Autowired
-    public BoardController(BoardService boardService,CommentService commentService) {
-        this.boardService = boardService;
+    public JoinController(JoinService joinService, CommentService commentService) {
+        this.joinService = joinService;
         this.commentService = commentService;
 
     }
@@ -31,52 +31,68 @@ public class BoardController {
     @GetMapping
     //전체 글보여주는 페이지
     public String items(Model model){
-        List<Board> items = boardService.AllContentList();
+        List<Join> items = joinService.AllContentList();
         model.addAttribute("items", items);
 
         return "join/main";
     }
 
-    @GetMapping("/add")
+    @GetMapping("/write")
     //글 추가하는 view보여주는 메서드
     public String addForm(){
         return "join/write";
     }
 
-    @PostMapping("/add")
+    @PostMapping("/write")
     //add.html view에서 작성한 add메서드
-    public String add(@ModelAttribute("board") Board board){
-        boardService.save(board);
+    public String add(@ModelAttribute("join") Join join){
+        joinService.save(join);
 
 
-        return "redirect:/board";
+        return "redirect:/join";
     }
-    @GetMapping("{number}")
+    @GetMapping("{join_idx}")
     //전체게시글에서 하나의 게시글 클릭시 하나의게시글보여주는 메서드
-    public String item(@PathVariable int number, Model model){
+    public String item(@PathVariable int join_idx, Model model){
 
-        Board board = boardService.oneContentList(number);
-        List<Comment> comments = commentService.oneContentList(number);
+        Join join = joinService.oneContentList(join_idx);
+        List<Comment> comments = commentService.oneContentList(join_idx);
 
         model.addAttribute("comments", comments);
 
-        model.addAttribute("board", board);
+        model.addAttribute("join", join);
 
+        model.addAttribute("join_idx",join_idx);
 
         return "join/read";
     }
-    @GetMapping("/edit/{number}")
+    @PostMapping("/comment/{join_idx}")
+    //댓글 저장
+    public String comment(@PathVariable int join_idx,
+                          @RequestParam("comment_text") String comment_text){
+
+        
+        Comment comment = new Comment();
+        comment.setComment_number(join_idx);
+        comment.setComment_text(comment_text);
+
+        commentService.save(comment);
+
+        return "redirect:/join/{join_idx}";
+    }
+
+    @GetMapping("/edit/{join_idx}")
     //게시글 수정 view 보여주고 전달
-    public String editForm(@PathVariable int number, Model model){
-        Board board = boardService.oneContentList(number);
-        model.addAttribute("board", board);
+    public String editForm(@PathVariable int join_idx, Model model){
+        Join join = joinService.oneContentList(join_idx);
+        model.addAttribute("join", join);
         return "edit";
     }
-    @PostMapping("/edit/{number}")
+    @PostMapping("/edit/{join_idx}")
     //실제 게시글수정
-    public String edit(@ModelAttribute("board") Board board,@PathVariable int number){
-        boardService.updateContentInfo(board);
-        return "redirect:/board/{number}";
+    public String edit(@ModelAttribute("join") Join join,@PathVariable int join_idx){
+        joinService.updateContentInfo(join);
+        return "redirect:/join/{join_idx}";
     }
 
 

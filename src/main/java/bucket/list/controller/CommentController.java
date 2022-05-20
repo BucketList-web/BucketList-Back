@@ -1,15 +1,13 @@
 package bucket.list.controller;
 
-import bucket.list.domain.Board;
 import bucket.list.domain.Comment;
-import bucket.list.service.BoardService;
+import bucket.list.domain.Join;
+import bucket.list.service.JoinService;
 import bucket.list.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/board")
