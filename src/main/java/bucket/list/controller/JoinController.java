@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/board/")
+//@RequestMapping("/menu/{board_info_idx}")
+@RequestMapping("/join/")
 public class BoardController {
 
     private final BoardService boardService;
@@ -33,13 +34,13 @@ public class BoardController {
         List<Board> items = boardService.AllContentList();
         model.addAttribute("items", items);
 
-        return "items";
+        return "join/main";
     }
 
     @GetMapping("/add")
     //글 추가하는 view보여주는 메서드
     public String addForm(){
-        return "add";
+        return "join/write";
     }
 
     @PostMapping("/add")
@@ -62,7 +63,7 @@ public class BoardController {
         model.addAttribute("board", board);
 
 
-        return "item";
+        return "join/read";
     }
     @GetMapping("/edit/{number}")
     //게시글 수정 view 보여주고 전달

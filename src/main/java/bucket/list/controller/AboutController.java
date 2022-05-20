@@ -2,7 +2,7 @@ package bucket.list.controller;
 
 
 import bucket.list.domain.About;
-import bucket.list.domain.Board_info_idx;
+import bucket.list.domain.BoardInfo;
 import bucket.list.service.AboutService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +24,7 @@ public class AboutController {
 
     //공지사항 메인페이지 메서드
     @GetMapping()
-    public String about(@ModelAttribute("board_info_idx") Board_info_idx board_info_idx, Model model){
+    public String about(@ModelAttribute("board_info_idx") BoardInfo board_info_idx, Model model){
 
         List<About> about_items = aboutService.allContentList();
 
@@ -36,7 +36,7 @@ public class AboutController {
     //글쓰기페이지
     @GetMapping("/write")
     // board_info_idx 의 변수값을 받기위해 board_info_idx 도메인을 생성해서 커맨드객체로 값은 받은다음 해당값을 넘겨줌
-    public String writeForm(@ModelAttribute("board_info_idx") Board_info_idx board_info_idx, Model model){
+    public String writeForm(@ModelAttribute("board_info_idx") BoardInfo board_info_idx, Model model){
 
         model.addAttribute("board_info_idx", board_info_idx);
 
