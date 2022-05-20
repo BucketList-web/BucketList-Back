@@ -12,6 +12,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -42,6 +43,8 @@ public class UserController {
     @PostMapping("/create")
     public String create(@Valid @ModelAttribute("user") User user, BindingResult bindingResult){
 
+
+        
         if(bindingResult.hasErrors()){
             return "/user/create";
         }
@@ -52,8 +55,16 @@ public class UserController {
     }
 
     @GetMapping("/exist/{user_id}")
+
     //아이디중복확인 메서드
-    public String exist(@Valid @RequestParam("user_id") String user_id, BindingResult bindingResult){
+    public String exist(@ModelAttribute("user") User user, BindingResult bindingResult){
+
+
+        System.out.println("user_id = " + user.getUser_id());
+
+        userService.exist(user.getUser_id());
+
+
         if(bindingResult.hasErrors()){
             return "/user/create";
         }

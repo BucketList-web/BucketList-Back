@@ -22,9 +22,9 @@
                     <div class="d-flex align-items-center mt-lg-5 mb-4">
                         <div class="ms-3">
                             <!-- 작성자 -->
-                            <div class="fw-bold">Valerie Luna</div>
+                            <div class="fw-bold" th:text="${join.join_writer}">작성자</div>
                             <!-- 메뉴 목록이름 -->
-                            <div class="text-muted">News, Business</div>
+                            <div class="text-muted">양동이 살펴보기</div>
                         </div>
                     </div>
                 </div>
@@ -34,15 +34,15 @@
                         <!-- Post header-->
                         <header class="mb-4">
                             <!-- 제목 -->
-                            <h1 class="fw-bolder mb-1">Welcome to Blog Post!</h1>
+                            <h1 class="fw-bolder mb-1" th:text="${join.join_subject}">제목</h1>
                             <!-- 작성일 -->
-                            <div class="text-muted fst-italic mb-2">January 1, 2022</div>
+                            <div class="text-muted fst-italic mb-2" th:text="${join.join_date}">작성일</div>
                         </header>
                         <!-- 파일업로드 -->
                         <figure class="mb-4"><img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." /></figure>
                         <!-- 글 작성 문단-->
                         <section class="mb-5">
-                            <p class="fs-5 mb-4">Science is an enterprise that should be cherished as an activity of the free human mind. Because it transforms who we are, how we live, and it gives us an understanding of our place in the universe.</p>
+                            <p class="fs-5 mb-4" th:text="${join.join_text}" >글내용</p>
                         </section>
                     </article>
                     <!-- 댓글항목 -->
@@ -50,38 +50,22 @@
                         <div class="card bg-light">
                             <div class="card-body">
                                 <!-- 댓글폼 -->
-                                <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea></form>
+                                <form class="mb-4" th:action="@{|/join/comment/${join_idx}|}" method="post" >
+                                    <textarea class="form-control" rows="3" id="comment_text" name="comment_text" placeholder="답글을 달아보세요!"></textarea>
+                                    <input type="hidden" th:field="${join.join_idx}">
+                                    <button class="w-100 btn btn-primary btn-lg" type="submit">답글
+                                        등록</button>
+                                </form>
                                 <!-- Comment with nested comments-->
-                                <div class="d-flex mb-4">
-                                    <!-- Parent comment-->
-                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                    <div class="ms-3">
-                                        <div class="fw-bold">Commenter Name</div>
-                                        If you'
-                                        <!-- Child comment 1-->
+                                <div class="d-flex mb-4" th:each="comment : ${comments}">
+                                    <!-- 답글-->
+                                    <div class="ms-3" >
                                         <div class="d-flex mt-4">
-                                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
                                             <div class="ms-3">
-                                                <div class="fw-bold">Commenter Name</div>
-                                                And under those conditions,
+                                                <div class="fw-bold" th:text="${comment.comment_writer}">작성자</div>
+                                                <div th:text="${comment.comment_text}"> 답글내용</div>
                                             </div>
                                         </div>
-                                        <!-- Child comment 2-->
-                                        <div class="d-flex mt-4">
-                                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                            <div class="ms-3">
-                                                <div class="fw-bold">Commenter Name</div>
-                                                When you put money directly to a problem,
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Single comment-->
-                                <div class="d-flex">
-                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                    <div class="ms-3">
-                                        <div class="fw-bold">Commenter Name</div>
-
                                     </div>
                                 </div>
                             </div>

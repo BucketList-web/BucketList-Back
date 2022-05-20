@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
+//@RequestMapping("/menu/{board_info_idx}")
 @RequestMapping("/menu/{board_info_idx}")
 public class AboutController {
 

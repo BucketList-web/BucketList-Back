@@ -10,32 +10,27 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/board")
+//@RequestMapping("/board")
 public class CommentController {
 
-    private final BoardService boardService;
+    private final JoinService joinService;
     private final CommentService commentService;
 
     @Autowired
-    public CommentController(CommentService commentService, BoardService boardService) {
+    public CommentController(CommentService commentService, JoinService joinService) {
         this.commentService = commentService;
-        this.boardService=boardService;
+        this.joinService = joinService;
     }
 
-    @GetMapping("comment/{number}")
-    //댓글 폼으로
-    public String commentForm(@PathVariable int number, Model model){ //해당게시글의 댓글을 연동하기위해 게시글의 번호를 전달한다
-
-        Board board = boardService.oneContentList(number);
-        model.addAttribute("board",board);
-
-        return "comment";
-    }
-
-    @PostMapping("/comment/{number}/")
-    //댓글 저장
-    public String comment(@PathVariable("number") int number,
-                          @RequestParam("comment_text") String comment_text){
+//    @GetMapping("comment/{number}")
+//    //댓글 폼으로
+//    public String commentForm(@PathVariable int number, Model model){ //해당게시글의 댓글을 연동하기위해 게시글의 번호를 전달한다
+//
+//        Join join = joinService.oneContentList(number);
+//        model.addAttribute("join",join);
+//
+//        return "comment";
+//    }
 
         Comment comment = new Comment();
         comment.setComment_idx(number);

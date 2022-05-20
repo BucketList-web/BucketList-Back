@@ -10,6 +10,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 </head>
+<script th:inline="javascript">
+    function checkUserIdExist(){
+
+		var user_id = $("#user_id").val()
+
+		if(user_id.length == 0){
+			alert('아이디를 입력해주세요')
+			return
+		}
+
+
+	}
+</script>
 <body class="d-flex flex-column">
 <main class="flex-shrink-0">
     <!-- 상단 메뉴 부분 -->
@@ -32,12 +45,18 @@
                                 아이디
                                 <label for="user_id"></label>
                                 <div class="input-group">
+                                    <input type="hidden" th:field="*{user_exist}">
                                     <input class="form-control" id="user_id" th:field="*{user_id}" type="text" placeholder="ID를 입력하세요"  />
                                     <div class="input-group-append">
-                                        <button type="button" class="btn btn-primary" th:onclick="|location.href='@{/user/exist/${user_id}'|">중복확인</button>
+
+<!--                                        <a th:href="@{/user/exist/}"><button type="button" class="btn btn-primary" th:field="*{user_id}" >중복확인</button></a>-->
+                                        <button type="button"  class="btn btn-primary" th:onclick="|location.href='@{/user/exist/${user_id}}'|" >중복확인</button>
+<!--                                        <a th:href="@{/user/exist/${user_id}}"> <button type="button"  class="btn btn-primary" onclick='checkUserIdExist()' >중복확인</button></a>-->
+
                                     </div>
                                 </div>
                                 <div th:errors="*{user_id}" style='color:red'>아이디 오류</div>
+                                <div th:errors="*{user_exist}" style='color:red'>중복 아이디 오류</div>
                             </div>
                             <!-- name input-->
                             <div class="form-floating mb-3">
