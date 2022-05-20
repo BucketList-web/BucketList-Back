@@ -1,6 +1,6 @@
 package bucket.list.repository;
 
-import bucket.list.domain.Board;
+import bucket.list.domain.Join;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;

@@ -21,8 +21,8 @@ public class CommentService {
         Comment save = commentRepository.save(comment);
         return save;
     }
-    public List<Comment> oneContentList(int number) {
-        List<Comment> comments = commentRepository.oneContentList(number);
+    public List<Comment> oneContentList(int comment_number) {
+        List<Comment> comments = commentRepository.oneCommentList(comment_number);
         return comments;
     }
 }

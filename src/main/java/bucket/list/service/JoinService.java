@@ -1,40 +1,40 @@
 package bucket.list.service;
 
-import bucket.list.domain.Board;
-import bucket.list.repository.BoardRepository;
+import bucket.list.domain.Join;
+import bucket.list.repository.JoinRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class BoardService {
+public class JoinService {
 
-    private final BoardRepository boardRepository;
+    private final JoinRepository joinRepository;
 
     @Autowired
-    public BoardService(BoardRepository boardRepository) {
-        this.boardRepository = boardRepository;
+    public JoinService(JoinRepository joinRepository) {
+        this.joinRepository = joinRepository;
     }
 
-    public Board save(Board board) {
+    public Join save(Join join) {
         //게시글 저장
-        Board save = boardRepository.save(board);
+        Join save = joinRepository.save(join);
         return save;
     }
-    public List<Board> AllContentList() {
+    public List<Join> AllContentList() {
         //전체게시글
-        List<Board> boards = boardRepository.AllContentList();
-        return boards;
+        List<Join> Joins = joinRepository.AllContentList();
+        return Joins;
     }
 
-    public Board oneContentList(int number) {
+    public Join oneContentList(int number) {
         //하나의 게시글
-        Board board = boardRepository.oneContentList(number);
-        return board;
+        Join join = joinRepository.oneContentList(number);
+        return join;
     }
-    public void updateContentInfo(Board board) {
-        boardRepository.updateContentInfo(board);
+    public void updateContentInfo(Join join) {
+        joinRepository.updateContentInfo(join);
 
     }
 }

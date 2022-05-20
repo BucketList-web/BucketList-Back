@@ -49,10 +49,12 @@ public class UserRepositoryImpl implements UserRepository{
     }
 
     @Override
-    public String exist(String user_id) {
+    public User exist(String user_id) {
 
-        return jdbcTemplate.query("select user_name from user where user_id = ?" , userRowMapper(), user_id).get(0).toString();
+        return jdbcTemplate.query("select user_phone from user where user_id = ?" , userRowMapper(), user_id).get(0);
     }
+
+
 
 
     private RowMapper<User> userRowMapper(){
