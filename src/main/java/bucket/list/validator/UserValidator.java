@@ -22,5 +22,9 @@ public class UserValidator implements Validator {
             errors.rejectValue("user_pw2", "NotEquals", "비밀번호가 일치하지 않습니다");
         }
 
+//        if(user.isUser_exist()==true){
+//            errors.rejectValue("user_exist","Exist","아이디가 중복아이디 입니다");
+//        }
+
     }
 }

@@ -2,18 +2,24 @@ package bucket.list.controller;
 
 
 import bucket.list.domain.About;
-import bucket.list.domain.BoardInfo;
+
 import bucket.list.service.AboutService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
 //@RequestMapping("/menu/{board_info_idx}")
-@RequestMapping("/menu/{board_info_idx}")
+@RequestMapping("/about")
 public class AboutController {
 
     private final AboutService aboutService;
@@ -25,40 +31,50 @@ public class AboutController {
 
     //공지사항 메인페이지 메서드
     @GetMapping()
-    public String about(@ModelAttribute("board_info_idx") BoardInfo board_info_idx, Model model){
+    //페이징구현하기, Pageable 사용하기 page = 기본페이지, size 한페이지 게시글수,sort 정렬 기준 잡을 변수, direction 오름차순인지 내림차순인지
+    public String about(Model model,@PageableDefault(page = 0, size = 10, sort = "aboutnumber",direction = Sort.Direction.DESC) Pageable pageable){
 
-        List<About> about_items = aboutService.allContentList();
+        Page<About> about_items = aboutService.allContentList(pageable);
+
+
+
+        //현재 페이지 변수 Pageable 0페이지부터 시작하기 +1을해줘서 1페이지부터 반영한다
+       int nowPage = about_items.getPageable().getPageNumber() +1;
+       //블럭에서 보여줄 시작페이지(Math.max 한이유는 시작페이지가 마이너스 값일 수는 업으니깐 Math.max를 사용)
+       int startPage =Math.max(nowPage-4,1) ;
+       //블럭에서 보여줄때 마지막페이지(Math.min 한이유는 총페이지가 10페이지인데, 현재페이지가 9페이지이면 14페이지가되므로 오류,
+        //그렇기에 getTotalpage를  min으로설정)
+       int endPage = Math.min(nowPage + 5,  about_items.getTotalPages()) ;
 
         model.addAttribute("about_items", about_items);
-        model.addAttribute("board_info_idx", board_info_idx);
+        model.addAttribute("nowPage", nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
 
         return "about/about";
     }
     //글쓰기페이지
     @GetMapping("/write")
-    // board_info_idx 의 변수값을 받기위해 board_info_idx 도메인을 생성해서 커맨드객체로 값은 받은다음 해당값을 넘겨줌
-    public String writeForm(@ModelAttribute("board_info_idx") BoardInfo board_info_idx, Model model){
-
-        model.addAttribute("board_info_idx", board_info_idx);
+    public String writeForm( ){
 
         return "about/write";
     }
 
     @PostMapping("/write")
-    //
-    public String write(@ModelAttribute("about")About about){
-
-        About save = aboutService.Save(about);
+    public String write(@ModelAttribute("about")About about, MultipartFile file) throws IOException {
 
 
-        return "redirect:/menu/{board_info_idx}";
+        aboutService.save(about,file);
+
+
+        return "redirect:/about";
 
     }
-    @GetMapping("/{about_number}/read")
+    @GetMapping("/{aboutnumber}/read")
     //글읽는 페이지 메서드
-    public String read(@PathVariable int about_number, Model model ){
+    public String read(@PathVariable Integer aboutnumber, Model model ){
 
-        About about = aboutService.oneContentList(about_number);
+        About about = aboutService.oneContentList(aboutnumber);
 
         model.addAttribute("about", about);
 

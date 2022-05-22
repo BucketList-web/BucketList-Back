@@ -20,10 +20,10 @@
         <div class="col-sm-6">
             <div class="card shadow">
                 <div class="card-body">
-                    <form th:action method="post">
+                    <form th:action method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <div class="form-group">
-                                <select class="form-select" aria-label="Default select example" name="join_option">
+                                <select class="form-select" aria-label="Default select example" name="participation_option">
                                     <option selected>버킷리스트 종류</option>
                                     <option value="travel">여행</option>
                                     <option value="sport">스포츠</option>
@@ -32,32 +32,32 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="join_subject">제목</label>
-                            <input type="text" id="join_subject" name="join_subject" class="form-control"/>
+                            <label for="participation_subject">제목</label>
+                            <input type="text" id="participation_subject" name="participation_subject" class="form-control"/>
                         </div>
                         <div class="form-group">
-                            <label for="join_tag">태그</label>
-                            <input type="text" id="join_tag" name="join_tag" class="form-control"/>
+                            <label for="participation_tag">태그</label>
+                            <input type="text" id="participation_tag" name="participation_tag" class="form-control"/>
                         </div>
                         <div class="form-group">
-                            <label for="join_place">장소</label>
-                            <input type="text" id="join_place" name="join_place" class="form-control"/>
+                            <label for="participation_place">장소</label>
+                            <input type="text" id="participation_place" name="participation_place" class="form-control"/>
                         </div>
                         <div class="form-group">
-                            <label for="join_cost">비용</label>
-                            <input type="text" id="join_cost" name="join_cost" class="form-control"/>
+                            <label for="participation_cost">비용</label>
+                            <input type="text" id="participation_cost" name="participation_cost" class="form-control"/>
                         </div>
                         <div class="form-group">
-                            <label for="join_party">인원수</label>
-                            <input type="text" id="join_party" name="join_party" class="form-control"/>
+                            <label for="participation_party">인원수</label>
+                            <input type="text" id="participation_party" name="participation_party" class="form-control"/>
                         </div>
                         <div class="form-group">
-                            <label for="join_text">내용</label>
-                            <textarea id="join_text" name="join_text" class="form-control" rows="10" style="resize:none"></textarea>
+                            <label for="participation_text">내용</label>
+                            <textarea id="participation_text" name="participation_text" class="form-control" rows="10" style="resize:none"></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="join_file">첨부 이미지</label>
-                            <input type="file" id="join_file" name="join_file" class="form-control" accept="image/*"/>
+                            <label for="file">첨부 이미지</label>
+                            <input type="file" id="file" name="file" class="form-control" />
                         </div>
                         <div class="form-group">
                             <div class="text-right">

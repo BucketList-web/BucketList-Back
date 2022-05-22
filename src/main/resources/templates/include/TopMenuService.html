@@ -17,18 +17,32 @@
 <div th:fragment="TopMenuService">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container px-5">
-        <a class="navbar-brand" href="index.html">버킷리스트</a>
+        <a class="navbar-brand" href="/main">버킷리스트</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li th:each="board : ${boardInfo}" class="nav-item" >
-                    <a class="nav-link" th:href="@{|menu/${board.board_info_idx}|}" th:text="${board.board_info_name}"></a>
-                    <form>
-                        <input type="hidden" th:value="board.board_info_idx">
-                    </form>
+                <li  class="nav-item" >
+                    <a class="nav-link" th:href="@{|/about|}" >공지사항</a>
                 </li>
-                <li class="nav-item"><a class="nav-link" th:href="@{|/user/login|}">로그인</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{|/user/create|}">회원가입</a></li>
+                <li  class="nav-item" >
+                    <a class="nav-link" th:href="@{|/participation|}" >참여하기</a>
+                </li>
+                <li  class="nav-item" >
+                    <a class="nav-link" th:href="@{|/community|}" >게시판</a>
+                </li>
+                <li  class="nav-item" >
+                    <a class="nav-link" th:href="@{|/customer|}" >고객센터</a>
+                </li>  &nbsp;&nbsp;&nbsp;&nbsp;
+<!--                <li  class="nav-item" >-->
+<!--                    <a class="nav-link" th:href="@{|/menu/about/|}" th:text="${boardInfo.board_info_name}"></a>-->
+<!--                    <form>-->
+<!--                        <input type="hidden" th:value="${boardInfo.board_info_idx}">-->
+<!--                    </form>-->
+<!--                </li>-->
+                <li th:if="${session.loginMember== null}" class="nav-item"><a class="nav-link" th:href="@{|/user/login|}">로그인</a></li>
+                <li th:if="${session.loginMember== null}" class="nav-item"><a class="nav-link" th:href="@{|/user/create|}">회원가입</a></li>
+                <li th:if="${session.loginMember!= null}" class="nav-item"><a class="nav-link" th:href="@{|/user/mypage}" th:text="${session.loginMember.id}"></a></li>
+                <li th:if="${session.loginMember!= null}" class="nav-item"><a class="nav-link" th:href="@{|/user/logout|}">로그아웃</a></li>
             </ul>
 
         </div>
@@ -37,7 +51,7 @@
 
         <div class="container-fluid">
             <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control me-2" type="search" placeholder="검색" aria-label="Search" id="search" name="search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
         </div>

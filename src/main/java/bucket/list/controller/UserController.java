@@ -27,10 +27,10 @@ public class UserController {
 
 
 
-    @GetMapping("/login")
-    public String Login(){
-        return "user/login";
-    }
+//    @GetMapping("/login")
+//    public String Login(){
+//        return "user/login";
+//    }
 
     @GetMapping("/create")
     public String createForm(Model model){
@@ -56,21 +56,21 @@ public class UserController {
 
     @GetMapping("/exist/{user_id}")
 
-    //아이디중복확인 메서드
-    public String exist(@ModelAttribute("user") User user, BindingResult bindingResult){
-
-
-        System.out.println("user_id = " + user.getUser_id());
-
-        userService.exist(user.getUser_id());
-
-
-        if(bindingResult.hasErrors()){
-            return "/user/create";
-        }
-
-        return "/user/create";
-    }
+//    //아이디중복확인 메서드
+//    public String exist(@ModelAttribute("user") User user, BindingResult bindingResult){
+//
+//
+//        System.out.println("user_id = " + user.getUser_id());
+//
+//        userService.exist(user.getUser_id());
+//
+//
+//        if(bindingResult.hasErrors()){
+//            return "/user/create";
+//        }
+//
+//        return "/user/create";
+//    }
 
     //비밀번호 일치여부 initbinder
     @InitBinder
