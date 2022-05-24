@@ -47,6 +47,7 @@ public class ParticipationService {
         participation.setParticipation_file(fileName);
         participation.setParticipation_filepath("/files/" + fileName);
 
+
         participationRepository.save(participation);
     }
     //전체게시글
@@ -55,6 +56,7 @@ public class ParticipationService {
         return participation;
     }
     //하나의 게시글
+    @Transactional
     public Participation oneContentList(Integer participationidx) {
         Participation participation = participationRepository.findById(participationidx).get();
         return participation;
@@ -68,8 +70,9 @@ public class ParticipationService {
 
     //조회수 증가 메서드
     @Transactional
-    public int updateCount(Integer participationidx){
-        Integer count = participationRepository.updateCount(participationidx);
+    public int updateCount(int participationidx){
+        int count = participationRepository.updateCount(participationidx);
+
         return count;
 
     }
