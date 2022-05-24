@@ -25,9 +25,7 @@ public class MainController {
     public String bestContent(Model model){
 
         List<Participation> bestContents = mainService.bestContent();
-        List<About> newContents = mainService.newContent();
 
-        model.addAttribute("newContents", newContents);
         model.addAttribute("bestContents", bestContents);
 
         return "main/main";
