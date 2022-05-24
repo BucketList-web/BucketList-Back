@@ -42,6 +42,7 @@ public class AboutService {
         about.setAbout_file(fileName);
         about.setAbout_filepath("/files/" + fileName);
 
+
         aboutRepository.save(about);
 
 
@@ -59,5 +60,12 @@ public class AboutService {
         About about = aboutRepository.findById(aboutnumber).get();
 
         return about;
+    }
+
+    @Transactional
+    //글삭제메서드
+    public void deleteContent(Integer aboutnumber){
+        aboutRepository.deleteById(aboutnumber);
+
     }
 }
