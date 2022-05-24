@@ -20,8 +20,7 @@
         <div class="col-sm-6">
             <div class="card shadow">
                 <div class="card-body">
-                    <form th:action method="post" enctype="multipart/form-data">
-                        <div class="form-group">
+                    <form th:action th:object="${participation}" method="post" enctype="multipart/form-data">
                             <div class="form-group">
                                 <select class="form-select" aria-label="Default select example" name="participation_option">
                                     <option selected>버킷리스트 종류</option>
@@ -30,19 +29,21 @@
                                     <option value="etc">기타</option>
                                 </select>
                             </div>
-                        </div>
                         <div class="form-group">
                             <label for="participation_subject">제목</label>
-                            <input type="text" id="participation_subject" name="participation_subject" class="form-control"/>
+                            <input type="text" id="participation_subject" th:field="*{participation_subject}" class="form-control"/>
                         </div>
+<!--                        <div th:errors="*{participation_subject}" style='color:red'>제목 오류</div>-->
                         <div class="form-group">
                             <label for="participation_tag">태그</label>
-                            <input type="text" id="participation_tag" name="participation_tag" class="form-control"/>
+                            <input type="text" id="participation_tag" th:field="*{participation_tag}" class="form-control"/>
                         </div>
+<!--                        <div th:errors="*{participation_tag}" style='color:red'>태그 오류</div>-->
                         <div class="form-group">
                             <label for="participation_place">장소</label>
-                            <input type="text" id="participation_place" name="participation_place" class="form-control"/>
+                            <input type="text" id="participation_place" th:field="*{participation_place}" class="form-control"/>
                         </div>
+<!--                        <div th:errors="*{participation_place}" style='color:red'>장소 오류</div>-->
                         <div class="form-group">
                             <label for="participation_cost">비용</label>
                             <input type="text" id="participation_cost" name="participation_cost" class="form-control"/>
@@ -53,8 +54,9 @@
                         </div>
                         <div class="form-group">
                             <label for="participation_text">내용</label>
-                            <textarea id="participation_text" name="participation_text" class="form-control" rows="10" style="resize:none"></textarea>
+                            <textarea id="participation_text" th:field="*{participation_text}" class="form-control" rows="10" style="resize:none"></textarea>
                         </div>
+<!--                        <div th:errors="*{participation_text}" style='color:red'>작성글오류</div>-->
                         <div class="form-group">
                             <label for="file">첨부 이미지</label>
                             <input type="file" id="file" name="file" class="form-control" />

@@ -20,7 +20,7 @@
     <div class="col-sm-6">
       <div class="card shadow">
         <div class="card-body">
-          <form th:action method="post">
+          <form th:action method="post" enctype="multipart/form-data">
             <div class="form-group">
               <div class="form-group">
                 <select class="form-select" aria-label="Default select example" name="participation_option">
@@ -56,12 +56,13 @@
               <textarea id="participation_text" name="participation_text" class="form-control" rows="10" style="resize:none" th:text="${participation.participation_text}" th:value="${participation.participation_text}"></textarea>
             </div>
             <div class="form-group">
-              <label for="participation_file">첨부 이미지</label>
-              <input type="file" id="participation_file" name="participation_file" class="form-control" accept="image/*"/>
+              <label for="file">첨부 이미지</label>
+              <input type="file" id="file" name="file" class="form-control" />
             </div>
             <div class="form-group">
               <div class="text-right">
                 <button type="submit" class="btn btn-primary">수정하기</button>
+                <button type="button" class="btn btn-secondary" th:onclick="|location.href='@{/participation/{number}(number=${number})}'|">돌아가기</button>
               </div>
             </div>
 
