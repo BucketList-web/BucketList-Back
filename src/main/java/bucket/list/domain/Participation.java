@@ -26,7 +26,10 @@ public class Participation {
     private String participation_writer;
     private String participation_subject;
     private String participation_filepath;
-    private Integer participation_count;
+
+
+    @Column(name = "participationcount", columnDefinition = "integer default 0")
+    private Integer count;
 
     @PrePersist
     public void localAboutDate(){
