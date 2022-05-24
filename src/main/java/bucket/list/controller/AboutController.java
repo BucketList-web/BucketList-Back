@@ -3,6 +3,7 @@ package bucket.list.controller;
 
 import bucket.list.domain.About;
 
+import bucket.list.domain.Login;
 import bucket.list.domain.Participation;
 import bucket.list.service.AboutService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -62,10 +65,14 @@ public class AboutController {
     }
 
     @PostMapping("/write")
-    public String write(@ModelAttribute("about")About about, MultipartFile file) throws IOException {
+    public String write(HttpServletRequest request, @ModelAttribute("about")About about, MultipartFile file) throws IOException {
 
+        HttpSession session = request.getSession();
+        if(session != null){
+            about.setAbout_writer(((Login)session.getAttribute("loginMember")).getId());
+            aboutService.save(about,file);
+        }
 
-        aboutService.save(about,file);
 
 
         return "redirect:/about";
