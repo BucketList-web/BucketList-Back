@@ -3,6 +3,7 @@ package bucket.list.controller;
 
 import bucket.list.domain.About;
 
+import bucket.list.domain.Participation;
 import bucket.list.service.AboutService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -80,7 +81,30 @@ public class AboutController {
 
         return "about/read";
     }
-    
+    @GetMapping("/edit/{aboutnumber}")
+    //게시글 수정 view 보여주고 전달
+    public String editForm(@PathVariable int aboutnumber, Model model){
+        About about = aboutService.oneContentList(aboutnumber);
+        model.addAttribute("about", about);
+        model.addAttribute("number", aboutnumber);
+        return "about/edit";
+    }
+
+    @PostMapping("/edit/{aboutnumber}")
+    //실제 게시글수정, 파일이미지 업로드
+    public String edit(@ModelAttribute("aboutnumber") About about,@PathVariable int aboutnumber,MultipartFile file) throws IOException {
+        aboutService.save(about,file);
+        return "redirect:/about/{aboutnumber}/read";
+    }
+
+    @GetMapping("/delete/{aboutnumber}")
+    //게시글 삭제
+    public String delete(@PathVariable int aboutnumber){
+
+        aboutService.deleteContent(aboutnumber);
+
+        return "redirect:/about";
+    }
 
 
 

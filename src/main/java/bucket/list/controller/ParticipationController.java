@@ -82,6 +82,7 @@ public class ParticipationController {
         Participation participation = participationService.oneContentList(participationidx);
         int participation_count = participationService.updateCount(participationidx);
         List<Comment> comments = commentService.allContentList(participationidx);
+        participationService.updateCount(participationidx);
 
         model.addAttribute("comments", comments);
 
@@ -89,7 +90,8 @@ public class ParticipationController {
 
         model.addAttribute("participationidx",participationidx);
 
-        model.addAttribute("participation_count", participation_count);
+
+
 
         return "participation/read";
     }
@@ -113,6 +115,7 @@ public class ParticipationController {
     public String editForm(@PathVariable int participationidx, Model model){
          Participation participation = participationService.oneContentList(participationidx);
         model.addAttribute("participation", participation);
+        model.addAttribute("number", participationidx);
         return "participation/edit";
     }
     
