@@ -1,7 +1,9 @@
 package bucket.list.controller;
 
 import bucket.list.domain.Comment;
+import bucket.list.domain.Login;
 import bucket.list.domain.Participation;
+import bucket.list.domain.User;
 import bucket.list.service.ParticipationService;
 import bucket.list.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +13,15 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
@@ -60,18 +67,21 @@ public class ParticipationController {
 
     @GetMapping("/write")
     //글 추가하는 view보여주는 메서드
-    public String addForm(){
+    public String addForm(Model model){
+
+        model.addAttribute("participation", new Participation());
+
         return "participation/write";
     }
 
     @PostMapping("/write")
-    public String add(@ModelAttribute("participation")Participation participation, MultipartFile file) throws IOException {
-//    public String add() {
+    public String add(HttpServletRequest request, @ModelAttribute("participation")Participation participation, MultipartFile file) throws IOException {
 
-
-
-        participationService.save(participation,file);
-
+        HttpSession session = request.getSession();
+        if(session != null){
+            participation.setParticipation_writer(((Login)session.getAttribute("loginMember")).getId());
+            participationService.save(participation,file);
+        }
 
         return "redirect:/participation";
     }
@@ -80,7 +90,6 @@ public class ParticipationController {
     public String item(@PathVariable int participationidx, Model model){
 
         Participation participation = participationService.oneContentList(participationidx);
-        int participation_count = participationService.updateCount(participationidx);
         List<Comment> comments = commentService.allContentList(participationidx);
         participationService.updateCount(participationidx);
 
@@ -120,7 +129,7 @@ public class ParticipationController {
     }
     
     @PostMapping("/edit/{participationidx}")
-    //실제 게시글수정, 
+    //실제 게시글수정, 파일이미지 업로드
     public String edit(@ModelAttribute("participation") Participation participation,@PathVariable int participationidx,MultipartFile file) throws IOException {
         participationService.save(participation,file);
         return "redirect:/participation/{participationidx}";
