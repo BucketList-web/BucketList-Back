@@ -9,9 +9,6 @@ import java.util.List;
 @Repository
 public interface AboutRepository extends JpaRepository<About,Integer> {
 
-//    About Save(About about);
-//
-//    List<About> allContentList();
-//
-//    About oneContentList(int about_number);
+    @Query("select a from About a order by a.aboutnumber asc")
+    List<About> newContent();
 }
