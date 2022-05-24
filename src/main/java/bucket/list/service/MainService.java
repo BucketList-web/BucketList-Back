@@ -27,13 +27,7 @@ public class MainService {
     public List<Participation> bestContent(){
         List<Participation> bestContents = participationRepository.findTop3ByOrderByCountDesc();
 
-//        List<Participation> bestContents = participationRepository.findTop3ByOrderByparticipation_costDesc();
         return bestContents;
     }
 
-    public List<About> newContent(){
-        List<About> newContents = aboutRepository.newContent();
-
-        return newContents;
-    }
 }
