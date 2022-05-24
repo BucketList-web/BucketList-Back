@@ -37,8 +37,6 @@
             </div>
         </div>
     </header>
-    <!-- Features section-->
-
     <section class="py-5" id="features">
         <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
@@ -47,11 +45,25 @@
                 <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
             </div>
             <div class="carousel-inner">
-                <div class="carousel-item active" data-bs-interval="10000" th:each="newContent : ${newContents}">
-                    <img th:src="${newContent.about_filepath}" class="img-fluid" alt="img">
+                <div class="carousel-item active" data-bs-interval="10000">
+                    <img src="./imgs/logo.png" class="img-fluid" alt="이미지1">
                     <div class="carousel-caption d-none d-md-block">
-                        <h5 th:text="${newContent.about_subject}">제목</h5>
-                        <p th:text="${newContent.about_text}">내용</p>
+                        <h5>가정의 달</h5>
+                        <p>연결고리가 P!ck 한 여행지</p>
+                    </div>
+                </div>
+                <div class="carousel-item" data-bs-interval="2000">
+                    <img src="./imgs/logo.png" class="img-fluid" alt="이미지1">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>이번 주 특가상품!</h5>
+                        <p>여름이오기전 시원한 바닷가</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="./imgs/logo.png" class="img-fluid" alt="이미지1">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>친구끼리 연결고리</h5>
+                        <p>친구끼리 동반 참여시 재미가 2배</p>
                     </div>
                 </div>
             </div>

@@ -7,7 +7,7 @@
     <!-- Bootstrap CDN -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://cdnjs.clooncliudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 </head>
 <body>
@@ -22,7 +22,7 @@
                 <div class="d-flex align-items-center mt-lg-5 mb-4">
                     <div class="ms-3">
                         <!-- 작성자 -->
-                        <div class="fw-bold" th:text="${about.about_writer}">작성자</div>
+                        <div class="fw-bold" th:text="|작성자 : ${about.about_writer}|">작성자</div>
                         <div class="text-muted">공지사항</div>
                     </div>
                 </div>
@@ -42,7 +42,6 @@
                     <!-- 글내용부분-->
                     <section class="mb-5">
                         <p class="fs-5 mb-4" th:text="${about.about_text}"></p>
-
                     </section>
                 </article>
                 <br>
