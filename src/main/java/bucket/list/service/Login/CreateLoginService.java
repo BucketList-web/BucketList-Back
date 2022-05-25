@@ -1,11 +1,8 @@
 package bucket.list.service.Login;
 
 import bucket.list.domain.CreateLogin;
-import bucket.list.repository.Login.CreateLoginRepositoryInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service     //spring bean 사용하여 따로 설정했으므로 삭제해야함
 public class CreateLoginService {

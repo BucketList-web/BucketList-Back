@@ -16,8 +16,12 @@ public interface ParticipationRepository extends JpaRepository<Participation,Int
     @Query("update participation p set p.count = p.count+1 where p.participationidx = :participationidx")
     int updateCount(@Param("participationidx") int participationidx);
 
-//    @Query("select p from participation p order by p.count desc")
-//    List<Participation> bestContent();
+
+    List<Participation> findTop3ByOrderByCountDesc();
+
+    @Query(value = "select participation_writer from participation where participationidx=?", nativeQuery = true)
+    String selectIdSQL(int participationidx);
+
 
 
 }

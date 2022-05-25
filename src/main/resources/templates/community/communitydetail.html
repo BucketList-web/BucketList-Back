@@ -52,9 +52,11 @@
                         <div class="fw-bold" th:text="${data.communitylink}">링크</div>
                     </article>
                     <br>
-                    <button th:if="${session.userid != null}"  type="button" class="btn btn-success"><a th:href="@{/community/edit/{id}(id=${data.communityid})}">수정하기</a></button>
+<!--                    <button th:if="${session.userid != null}"  type="button" class="btn btn-success"><a th:href="@{/community/edit/{id}(id=${data.communityid})}">수정하기</a></button>-->
+                    <button th:if="${session?.userid}"  type="button" class="btn btn-success"><a th:href="@{/community/edit/{id}(id=${data.communityid})}">수정하기</a></button>
                     <button type="button" class="btn btn-secondary" th:onclick="|location.href='@{/community}'|">목록으로</button>
-                    <button th:if="${session.userid!= null}" type="button" class="btn btn-success"><a th:href="@{/community/delete(id=${data.communityid})}">삭제</a></button>
+<!--                    <button th:if="${session.userid!= null}" type="button" class="btn btn-success"><a th:href="@{/community/delete(id=${data.communityid})}">삭제</a></button>-->
+                    <button th:if="${userid?}" type="button" class="btn btn-success"><a th:href="@{/community/delete(id=${data.communityid})}">삭제</a></button>
                     </div>  <!--  <button type="button" class="btn btn-danger" th:onclick="|location.href='@{/participation/delete/{participationidx}/(participationidx=${participation.participationidx})}'|">삭제하기</button>-->
                 </div>
             </div>

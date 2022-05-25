@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface AboutRepository extends JpaRepository<About,Integer> {
 
-    @Query("select a from About a order by a.aboutnumber asc")
-    List<About> newContent();
+    @Query(value = "select about_writer from about where aboutnumber=?", nativeQuery = true)
+    String selectIdSQL(int aboutnumber);
 }

@@ -3,6 +3,7 @@ package bucket.list.service.Participation;
 import bucket.list.domain.Participation;
 import bucket.list.repository.Participation.ParticipationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,9 @@ import java.util.UUID;
 @Service
 public class ParticipationService {
 
+    @Value("${file.dir}")
+    private String fileDir;
+
     private final ParticipationRepository participationRepository;
 
     @Autowired
@@ -26,24 +30,26 @@ public class ParticipationService {
     //글저장 메서드
     @Transactional
     public void save(Participation participation, MultipartFile file) throws IOException {
-        
+
         //파일의 저장경로를 위한 경로설정
-        String path = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files\\participation";
-        
+//        String path = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";
+        String path = fileDir;
+
+
         //이미지파일 중복을 방지하기위해 uuid설정
         UUID uuid = UUID.randomUUID();
 
         //filename의 uuid + 파일명
         String fileName = uuid + "_" + file.getOriginalFilename();
 
-        
+
         File saveFile = new File(path, fileName);
 
         //파일전송
         file.transferTo(saveFile);
 
         participation.setParticipation_file(fileName);
-        participation.setParticipation_filepath("/files/participation/" + fileName);
+
 
 
         participationRepository.save(participation);
@@ -73,5 +79,10 @@ public class ParticipationService {
 
         return count;
 
+    }
+
+    @Transactional
+    public String selectIdSQL(int participationidx){
+        return participationRepository.selectIdSQL(participationidx);
     }
 }

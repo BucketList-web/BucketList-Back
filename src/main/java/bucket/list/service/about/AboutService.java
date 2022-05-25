@@ -3,6 +3,7 @@ package bucket.list.service.about;
 import bucket.list.domain.About;
 import bucket.list.repository.about.AboutRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,9 @@ import java.util.UUID;
 @Service
 public class AboutService {
 
+    @Value("${file.dir}")
+    private String fileDir;
+
     private final AboutRepository aboutRepository;
 
     @Autowired
@@ -27,7 +31,8 @@ public class AboutService {
     @Transactional
     public void save(About about, MultipartFile file) throws IOException {
 
-        String path = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files\\about";
+//        String path = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";
+        String path = fileDir;
 
         UUID uuid = UUID.randomUUID();
 
@@ -38,7 +43,7 @@ public class AboutService {
         file.transferTo(saveFile);
 
         about.setAbout_file(fileName);
-        about.setAbout_filepath("/files/about/" + fileName);
+
 
 
         aboutRepository.save(about);
@@ -65,5 +70,10 @@ public class AboutService {
     public void deleteContent(Integer aboutnumber){
         aboutRepository.deleteById(aboutnumber);
 
+    }
+
+    @Transactional
+    public String selectIdSQL(int aboutnumber){
+        return aboutRepository.selectIdSQL(aboutnumber);
     }
 }

@@ -2,6 +2,7 @@ package bucket.list.controller;
 
 
 import bucket.list.domain.Comment;
+import bucket.list.domain.Login;
 import bucket.list.domain.Participation;
 import bucket.list.service.Participation.CommentService;
 import bucket.list.service.Participation.ParticipationService;
@@ -15,6 +16,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -68,60 +71,94 @@ public class ParticipationController {
     }
 
     @PostMapping("/write")
-    public String add(@ModelAttribute("participation")Participation participation, MultipartFile file) throws IOException {
-//    public String add() {
+    public String add(HttpServletRequest request, @ModelAttribute("participation")Participation participation, MultipartFile file) throws IOException {
 
-        participationService.save(participation,file);
+        HttpSession session = request.getSession();
+        if(session != null){
+            participation.setParticipation_writer(((Login)session.getAttribute("loginMember")).getId());
+            participationService.save(participation,file);
+        }
 
         return "redirect:/participation";
     }
-
     @GetMapping("{participationidx}")
     //전체게시글에서 하나의 게시글 클릭시 하나의게시글보여주는 메서드
-    public String item(@PathVariable int participationidx, Model model){
+    public String item(@PathVariable int participationidx, Model model,HttpServletRequest request){
+
+        HttpSession session = request.getSession();
+        String sessionwriter = ((Login)session.getAttribute("loginMember")).getId();   // sessionwriter에 현재 세션의 user이름을 넣어줌
+        String dbwriter = participationService.selectIdSQL(participationidx);       // 해당 게시물의 writer 정보를 dbwriter에 저장함
 
         Participation participation = participationService.oneContentList(participationidx);
-        int participation_count = participationService.updateCount(participationidx);
         List<Comment> comments = commentService.allContentList(participationidx);
         participationService.updateCount(participationidx);
 
-        model.addAttribute("comments", comments);
+        if(sessionwriter.equals(dbwriter)){
+            model.addAttribute("dbwriter", dbwriter);
+            model.addAttribute("comments", comments);
 
-        model.addAttribute("participation", participation);
+            model.addAttribute("participation", participation);
 
-        model.addAttribute("participationidx",participationidx);
-
-
+            model.addAttribute("participationidx",participationidx);
 
 
-        return "participation/read";
+            return "participation/read";
+        }else{
+            model.addAttribute("comments", comments);
+
+            model.addAttribute("participation", participation);
+
+            model.addAttribute("participationidx",participationidx);
+
+
+            return "participation/read";
+        }
+
+//
+//        model.addAttribute("comments", comments);
+//
+//        model.addAttribute("participation", participation);
+//
+//        model.addAttribute("participationidx",participationidx);
+
+
+
+
+//        return "participation/read";
     }
     @PostMapping("/comment/{participationidx}")
     //댓글 저장
-    public String comment(@PathVariable int participationidx,
+    public String comment(HttpServletRequest request,@PathVariable int participationidx,
                           @RequestParam("comment_text") String comment_text){
 
-        
+
         Comment comment = new Comment();
         comment.setComment_number(participationidx);
         comment.setComment_text(comment_text);
 
+
+        HttpSession session = request.getSession();
+//        if(session != null){
+        comment.setComment_writer(((Login)session.getAttribute("loginMember")).getId());
         commentService.save(comment);
+//        }
 
         return "redirect:/participation/{participationidx}";
+
+
     }
 
     @GetMapping("/edit/{participationidx}")
     //게시글 수정 view 보여주고 전달
     public String editForm(@PathVariable int participationidx, Model model){
-         Participation participation = participationService.oneContentList(participationidx);
+        Participation participation = participationService.oneContentList(participationidx);
         model.addAttribute("participation", participation);
         model.addAttribute("number", participationidx);
         return "participation/edit";
     }
-    
+
     @PostMapping("/edit/{participationidx}")
-    //실제 게시글수정, 
+    //실제 게시글수정, 파일이미지 업로드
     public String edit(@ModelAttribute("participation") Participation participation,@PathVariable int participationidx,MultipartFile file) throws IOException {
         participationService.save(participation,file);
         return "redirect:/participation/{participationidx}";
@@ -135,5 +172,4 @@ public class ParticipationController {
 
         return "redirect:/participation";
     }
-
 }
