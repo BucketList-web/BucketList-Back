@@ -81,7 +81,7 @@ public class CommunityController {
             service.createCommunity(community,file);
         }
 
-        return "redirect:/";
+        return "redirect:/community";
     }
 
     @GetMapping("/finddetail/{id}")       // 해당 게시물 출력

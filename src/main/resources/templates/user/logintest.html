@@ -55,6 +55,7 @@
     </style>
 </head>
 <body>
+
     <form action="/user/login" method="post" onsubmit="return Check(this);">
         <ht3 id="title">로그인</ht3>
         <div id="msg">
@@ -63,7 +64,6 @@
         <input type="password" name="pw" placeholder="비밀번호">
         <button>로그인</button>
         <div>
-            <label><input type="checkbox" name="rememberId"> 아이디 기억</label> |
             <a th:href="@{create}">회원가입</a>
         </div>        <script>
         function Check(frm) {
@@ -86,5 +86,6 @@
     </script>
 
     </form>
+
 </body>
 </html>

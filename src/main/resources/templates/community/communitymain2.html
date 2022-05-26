@@ -37,7 +37,8 @@
             <div class="col mb-5" th:each="data : ${data}">
                 <div class="card h-100">
                     <!-- Product image-->
-                    <img class="card-img-top" th:if="${data.communityfilepath}==${data.communityfilepath}" th:src="${data.communityfilepath}" alt="고객이 올린 이미지" />
+                    <img class="card-img-top" th:if="${data.communityfilename != null}" th:src="|/imagePath/${data.communityfilename}|" alt="고객이 올린 이미지" />
+                    <img class="img-fluid" th:unless="${data.communityfilename != null}" src="./imgs/noImage.png" alt="img" />
                     <!-- Product details-->
                     <div class="card-body p-4">
                         <div class="text-center">

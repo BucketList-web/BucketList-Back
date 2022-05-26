@@ -41,7 +41,7 @@
 <!--                            <div class="text-muted fst-italic mb-2" th:text="${participation.participation_date}">작성일</div>-->
                         </header>
                         <!-- 파일업로드 -->
-                        <figure class="mb-4"><img class="img-fluid rounded" th:src="${data.communityfilepath}" alt="..." /></figure>
+                        <figure class="mb-4"><img class="img-fluid rounded" th:if="${data.communityfilename != null}" th:src="|/imagePath/${data.communityfilename}|"alt="..." /></figure>
                         <div class="fw-bold" th:text="${data.communitykind}">종류</div><br>
                         <div class="fw-bold" th:text="${data.communitylocation}">위치</div><br>
                         <div class="fw-bold" th:text="${data.communityprice}">비용</div><br>

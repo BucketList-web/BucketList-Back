@@ -38,7 +38,8 @@
                         <div class="text-muted fst-italic mb-2" th:text="${about.about_date}">날짜</div>
                     </header>
                     <!-- file 업로드 부분-->
-                    <figure class="mb-4"><img class="img-fluid rounded" th:src="|/imagePath/${about.about_file}|" alt="고객이 올린 이미지" /></figure>
+
+                    <figure class="mb-4"><img class="img-fluid rounded" th:if="${about.about_file != null}" th:src="|/imagePath/${about.about_file}|" alt="고객이 올린 이미지" /></figure>
                     <!-- 글내용부분-->
                     <section class="mb-5">
                         <p class="fs-5 mb-4" th:text="${about.about_text}"></p>

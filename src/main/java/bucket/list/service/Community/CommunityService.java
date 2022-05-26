@@ -5,6 +5,7 @@ import bucket.list.domain.CreateLogin;
 import bucket.list.domain.User;
 import bucket.list.repository.Community.CommunityJpaRepositoryInterface;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,9 @@ import java.util.UUID;
 @Service     //spring bean 사용하여 따로 설정했으므로 삭제해야함
 public class CommunityService {
 
+    @Value("${file.dir}")
+    private String fileDir;
+
     private CommunityJpaRepositoryInterface repository;
 
     @Autowired
@@ -27,27 +31,38 @@ public class CommunityService {
     }
 
 
-    public Community createCommunity(Community community, MultipartFile file) throws IOException {             // 작성
+    public void createCommunity(Community community, MultipartFile file) throws IOException {             // 작성
 
-        if(file.isEmpty()) {
-            return repository.save(community);
-        }else{
-            String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files\\community";        // 파일 경로 저장
+        //파일의 저장경로를 위한 경로설정
+        boolean noneFIle = file.isEmpty();
 
-            UUID uuid = UUID.randomUUID();      // 식별자 , 파일 이름을 랜덤으로 저장하기 위해
+        if (!noneFIle) {
+            String path = fileDir;
 
-            String filename = uuid + "_" + file.getOriginalFilename();      // 파일 이름 변수에 랜덤이름 저장 => uuid(랜덤 이름)_업로드한파일명
+            //이미지파일 중복을 방지하기위해 uuid설정
+            UUID uuid = UUID.randomUUID();
 
-            File saveFile = new File(projectPath, filename);   // projectpath 경로에 name이름으로 저장할것
+            //filename의 uuid + 파일명
+            String fileName = uuid + "_" + file.getOriginalFilename();
 
+
+            File saveFile = new File(path, fileName);
+
+            //파일전송
             file.transferTo(saveFile);
 
-            community.setCommunityfilename(filename);                   // 파일 이름  db 저장
-            community.setCommunityfilepath("/files/community/" + filename);         // 파일 경로 db 저장
-            return repository.save(community);
+            community.setCommunityfilename(fileName);
+            community.setCommunityfilepath(fileName);
+
+            repository.save(community);
+        } else {
+            community.setCommunityfilename(null);
+            community.setCommunityfilepath(null);
+            repository.save(community);
         }
 
     }
+
 
     public void createeditCommunity(Community m){             // 작성
         repository.save(m);

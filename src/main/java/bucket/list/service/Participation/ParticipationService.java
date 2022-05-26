@@ -34,29 +34,32 @@ public class ParticipationService {
     public void save(Participation participation, MultipartFile file) throws IOException {
 
         //파일의 저장경로를 위한 경로설정
-//        String path = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";
-        String path = fileDir;
+        boolean noneFIle = file.isEmpty();
+
+        if(!noneFIle) {
+            String path = fileDir;
+
+            //이미지파일 중복을 방지하기위해 uuid설정
+            UUID uuid = UUID.randomUUID();
+
+            //filename의 uuid + 파일명
+            String fileName = uuid + "_" + file.getOriginalFilename();
 
 
-        //이미지파일 중복을 방지하기위해 uuid설정
-        UUID uuid = UUID.randomUUID();
+            File saveFile = new File(path, fileName);
 
-        //filename의 uuid + 파일명
-        String fileName = uuid + "_" + file.getOriginalFilename();
+            //파일전송
+            file.transferTo(saveFile);
 
-
-        File saveFile = new File(path, fileName);
-
-        //파일전송
-        file.transferTo(saveFile);
-
-        participation.setParticipation_file(fileName);
+            participation.setParticipation_file(fileName);
 
 
-
-        participationRepository.save(participation);
+            participationRepository.save(participation);
+        }else{
+            participation.setParticipation_file(null);
+            participationRepository.save(participation);
+        }
     }
-    //전체게시글
     public Page<Participation> AllContentList(Pageable pageable) {
         Page<Participation> participation = participationRepository.findAll(pageable);
         return participation;

@@ -7,5 +7,5 @@ public interface UserRepository {
 
     User save(User user);
     User finduser(String name);
-    String exist(String user_id);
+    String existUserId(String user_id);
 }

@@ -3,6 +3,10 @@ package bucket.list.domain;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
@@ -10,7 +14,7 @@ import javax.validation.constraints.Pattern;
 @Setter
 public class User {
 
-    private int user_idx;
+    private Integer useridx;
 
     @NotBlank(message = "아이디는 필수 입력 값입니다.")
     private String user_id;
@@ -34,8 +38,9 @@ public class User {
 
     @NotBlank(message = "전화번호는 필수 입력 값입니다.")
 //    @Pattern(regexp = "(010)-\\d{3,4}-\\d{4}", message = "전화번호 형식이 올바르지 않습니다.")
-    private String user_phone;
+    @Column(name = "userphone")
+    private String phone;
 
-    private int data;
+    private boolean userExistId;
 
 }

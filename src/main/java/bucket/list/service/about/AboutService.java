@@ -16,7 +16,6 @@ import java.util.UUID;
 
 @Service
 public class AboutService {
-
     @Value("${file.dir}")
     private String fileDir;
 
@@ -32,21 +31,31 @@ public class AboutService {
     public void save(About about, MultipartFile file) throws IOException {
 
 //        String path = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";
-        String path = fileDir;
 
-        UUID uuid = UUID.randomUUID();
+        boolean noneFIle = file.isEmpty();
 
-        String fileName = uuid + "_" + file.getOriginalFilename();
+        if(!noneFIle) {
 
-        File saveFile = new File(path, fileName);
+            String path = fileDir;
 
-        file.transferTo(saveFile);
+            UUID uuid = UUID.randomUUID();
 
-        about.setAbout_file(fileName);
+            String fileName = uuid + "_" + file.getOriginalFilename();
+
+            File saveFile = new File(path, fileName);
+            file.transferTo(saveFile);
+
+            about.setAbout_file(fileName);
 
 
+            aboutRepository.save(about);
 
-        aboutRepository.save(about);
+
+        }else{
+            about.setAbout_file(null);
+            aboutRepository.save(about);
+
+        }
 
 
     }
@@ -60,6 +69,9 @@ public class AboutService {
 
     //특정게시글 보는 메서드
     public About oneContentList(Integer aboutnumber) {
+
+//        File file = new File()
+
         About about = aboutRepository.findById(aboutnumber).get();
 
         return about;
@@ -76,4 +88,6 @@ public class AboutService {
     public String selectIdSQL(int aboutnumber){
         return aboutRepository.selectIdSQL(aboutnumber);
     }
+
+
 }

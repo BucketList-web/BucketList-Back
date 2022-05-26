@@ -38,7 +38,7 @@
             <div class="text-muted fst-italic mb-2" th:text="${customer.customerDate}">날짜</div>
           </header>
           <!-- file 업로드 부분-->
-          <figure class="mb-4"><img class="img-fluid rounded" th:src="|/imagePath/${customer.customerFile}|" alt="고객이 올린 이미지" /></figure>
+          <figure class="mb-4"><img class="img-fluid rounded" th:if="${customer.customerFile != null}"th:src="|/imagePath/${customer.customerFile}|" alt="고객이 올린 이미지" /></figure>
           <!-- 글내용부분-->
           <section class="mb-5">
             <p class="fs-5 mb-4" th:text="${customer.customerText}"></p>
@@ -48,8 +48,8 @@
         <button type="button" th:if="${dbwriter != null}" class="btn btn-success"  th:onclick="|location.href='@{/customer/edit/{customerIdx}/(customerIdx=${customer.customerIdx})}'|">수정하기</button>
         <button type="button" class="btn btn-secondary" th:onclick="|location.href='@{/customer}'|">목록으로</button>
         <button type="button" th:if="${dbwriter != null}" class="btn btn-danger" th:onclick="|location.href='@{/customer/delete/{customerIdx}/(customerIdx=${customer.customerIdx})}'|">삭제하기</button>
+      </div>
     </div>
-  </div>
 </section>
 </main>
 <!-- 하단-->

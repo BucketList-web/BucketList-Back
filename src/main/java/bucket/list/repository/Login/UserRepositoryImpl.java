@@ -29,7 +29,7 @@ public class UserRepositoryImpl implements UserRepository{
     public User save(User user) {
 
         SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate);       // sql 구문 생성 INSERT INTO
-        jdbcInsert.withTableName("userdata").usingGeneratedKeyColumns("user_idx");
+        jdbcInsert.withTableName("user").usingGeneratedKeyColumns("useridx");
 
         Map<String, Object> parameters = new HashMap<>();
 
@@ -38,23 +38,23 @@ public class UserRepositoryImpl implements UserRepository{
         parameters.put("user_pw", user.getUser_pw());
         parameters.put("user_pw2", user.getUser_pw2());
         parameters.put("user_email", user.getUser_email());
-        parameters.put("user_phone", user.getUser_phone());
+        parameters.put("user_phone", user.getPhone());
 
         Number key = jdbcInsert.executeAndReturnKey(new
                 MapSqlParameterSource(parameters));
 
-        user.setUser_idx(key.intValue());
+        user.setUseridx(key.intValue());
 
         return user;
     }
 
     @Override
     public User finduser(String name) {
-        return jdbcTemplate.query("SELECT *FROM userdata WHERE user_id=?",userRowMapper(),name).get(0);
+        return jdbcTemplate.query("SELECT *FROM user WHERE user_id=?",userRowMapper(),name).get(0);
     }
 
     @Override
-    public String exist(String user_id) {
+    public String existUserId(String user_id) {
 
         return jdbcTemplate.query("select user_name from user where user_id = ?" , userRowMapper(), user_id).get(0).toString();
     }
@@ -66,13 +66,13 @@ public class UserRepositoryImpl implements UserRepository{
             public User mapRow(ResultSet rs, int rowNum) throws SQLException {
                 User user = new User();
 
-                user.setUser_idx(rs.getInt("user_idx"));
+                user.setUseridx(rs.getInt("useridx"));
                 user.setUser_id(rs.getString("user_id"));
                 user.setUser_name(rs.getString("user_name"));
                 user.setUser_pw(rs.getString("user_pw"));
                 user.setUser_pw2(rs.getString("user_pw2"));
                 user.setUser_email(rs.getString("user_email"));
-                user.setUser_phone(rs.getString("user_phone"));
+                user.setPhone(rs.getString("user_phone"));
 
                 return user;
             }

@@ -19,6 +19,7 @@ import java.util.UUID;
 @Service
 public class CustomerService {
 
+
     @Value("${file.dir}")
     private String fileDir;
 
@@ -33,20 +34,29 @@ public class CustomerService {
     public void Save(Customer customer, MultipartFile file) throws IOException {
 
 //        String path = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";
-        String path = fileDir;
+        boolean noneFIle = file.isEmpty();
 
-        UUID uuid = UUID.randomUUID();
+        if(!noneFIle) {
 
-        String fileName = uuid + "_" + file.getOriginalFilename();
+            String path = fileDir;
 
-        File saveFile = new File(path, fileName);
+            UUID uuid = UUID.randomUUID();
 
-        file.transferTo(saveFile);
+            String fileName = uuid + "_" + file.getOriginalFilename();
 
-        customer.setCustomerFile(fileName);
+            File saveFile = new File(path, fileName);
+
+            file.transferTo(saveFile);
+
+            customer.setCustomerFile(fileName);
 
 
-        customerRepository.save(customer);
+            customerRepository.save(customer);
+        }else{
+            customer.setCustomerFile(null);
+            customerRepository.save(customer);
+
+        }
     }
 
     //고객센터 전체게시글보여주는 곳

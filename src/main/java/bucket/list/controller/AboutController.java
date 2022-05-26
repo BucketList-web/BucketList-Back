@@ -5,6 +5,7 @@ import bucket.list.domain.About;
 import bucket.list.domain.Login;
 import bucket.list.service.about.AboutService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -21,6 +22,8 @@ import java.io.IOException;
 @Controller
 @RequestMapping("/about")
 public class AboutController {
+    @Value("${admin.Id}")
+    private String adminId;
 
     private final AboutService aboutService;
 
@@ -32,10 +35,22 @@ public class AboutController {
     //공지사항 메인페이지 메서드
     @GetMapping()
     //페이징구현하기, Pageable 사용하기 page = 기본페이지, size 한페이지 게시글수,sort 정렬 기준 잡을 변수, direction 오름차순인지 내림차순인지
-    public String about(Model model,@PageableDefault(page = 0, size = 10, sort = "aboutnumber",direction = Sort.Direction.DESC) Pageable pageable){
+    public String about(Model model,
+                        @PageableDefault(page = 0, size = 10, sort = "aboutnumber",direction = Sort.Direction.DESC) Pageable pageable,
+                        HttpServletRequest request){
+
+        HttpSession session = request.getSession();
+        String adminLoginId = ((Login)session.getAttribute("loginMember")).getId();
 
         Page<About> about_items = aboutService.allContentList(pageable);
 
+
+        if(adminId.equals(adminLoginId)){
+            model.addAttribute("adminId",adminId);
+
+        }else {
+
+        }
 
 
         //현재 페이지 변수 Pageable 0페이지부터 시작하기 +1을해줘서 1페이지부터 반영한다
@@ -80,8 +95,8 @@ public class AboutController {
         String sessionwriter = ((Login)session.getAttribute("loginMember")).getId();   // sessionwriter에 현재 세션의 user이름을 넣어줌
         String dbwriter = aboutService.selectIdSQL(aboutnumber);       // 해당 게시물의 writer 정보를 dbwriter에 저장함
 
-
         About about = aboutService.oneContentList(aboutnumber);
+
 
         if(sessionwriter.equals(dbwriter)){
             model.addAttribute("dbwriter", dbwriter);
@@ -94,11 +109,7 @@ public class AboutController {
             return "about/read";
         }
 
-//        About about = aboutService.oneContentList(aboutnumber);
-//
-//        model.addAttribute("about", about);
 
-//        return "about/read";
     }
     @GetMapping("/edit/{aboutnumber}")
     //게시글 수정 view 보여주고 전달
@@ -124,7 +135,4 @@ public class AboutController {
 
         return "redirect:/about";
     }
-
-
-
 }

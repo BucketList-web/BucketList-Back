@@ -17,7 +17,7 @@ public class Communityjdbc {
     private String communityprice;      // 비용
     private Date communitydate = new Date(System.currentTimeMillis());
     private String communityfilename;
-    private String communityfilepath;
+
     private String communitylink;
 
 }

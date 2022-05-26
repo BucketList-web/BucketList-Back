@@ -112,7 +112,9 @@
                 <div class="col mb-5" th:each="data : ${data}">
                     <div class="card h-100">
                         <!-- Product image-->
-                        <img class="card-img-top" th:if="${data.communityfilepath}==${data.communityfilepath}" th:src="${data.communityfilepath}" alt="고객이 올린 이미지" />
+<!--                        <img class="card-img-top" th:if="${data.communityfilepath}==${data.communityfilepath}" th:src="${data.communityfilepath}" alt="고객이 올린 이미지" />-->
+                        <img class="card-img-top" th:if="${data.communityfilepath !=null }" th:src="|/imagePath/${data.communityfilepath}|" alt="고객이 올린 이미지" />
+                        <img class="img-fluid" th:unless="${data.communityfilepath != null}" src="./imgs/noImage.png" alt="img" />
                         <!-- Product details-->
                         <div class="card-body p-4">
                             <div class="text-center">
@@ -139,7 +141,8 @@
                 <div class="col mb-5" th:each="data2 : ${data2}">
                     <div class="card h-100">
                         <!-- Product image-->
-                        <img class="card-img-top" th:if="${data2.participation_file}==${data2.participation_file}" th:src="${data2.participation_file}" alt="고객이 올린 이미지" />
+                        <img class="card-img-top" th:if="${data2.participation_file !=null }" th:src="|/imagePath/${data2.participation_file}|" alt="고객이 올린 이미지" />
+                        <img class="img-fluid" th:unless="${data2.participation_file != null}" src="./imgs/noImage.png" alt="img" />
                         <!-- Product details-->
                         <div class="card-body p-4">
                             <div class="text-center">

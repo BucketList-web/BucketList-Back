@@ -33,7 +33,7 @@
                 <li class="nav-item"><a class="nav-link" th:href="@{|/customer|}">고객센터</a></li>
                 <li th:if="${session.loginMember== null}" class="nav-item"><a class="nav-link" th:href="@{|/user/login|}">로그인</a></li>
                 <li th:if="${session.loginMember== null}" class="nav-item"><a class="nav-link" th:href="@{|/user/create|}">회원가입</a></li>
-                <li th:if="${session.loginMember!= null}" class="nav-item"><a class="nav-link" th:href="@{|/user/mypage|}" th:text="${session.loginMember.id}"></a></li>
+                <li th:if="${session.loginMember!= null}" class="nav-item"><a class="nav-link" th:href="@{|/user/mypage|}" >마이페이지</a></li>
                 <li th:if="${session.loginMember!= null}" class="nav-item"><a class="nav-link" th:href="@{|/user/logout|}">로그아웃</a></li>
 
             </ul>

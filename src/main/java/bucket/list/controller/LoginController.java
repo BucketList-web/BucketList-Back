@@ -70,14 +70,14 @@ public class LoginController {
 
 
         if(m.getPw().equals(dbpw)) {
-            System.out.println(logindata.getId() + "님이 로그인 하셨습니다.");
+
         /*
             로그인 객체를 세션에 담음
          */
             HttpSession session = request.getSession();
 
             session.setAttribute("loginMember", logindata);
-            System.out.println(((Login)session.getAttribute("loginMember")).getId() + "님의 로그인 세션이 생성되었습니다.");
+
 
         /*
             Interceptor preHandle에서 저장해둔 가던 길이 있으면,
@@ -86,13 +86,13 @@ public class LoginController {
             String destURI = (String) session.getAttribute("destURI");
 
             if(destURI != null) {  // 마이 페이지 눌렀는데, 로그인 안된 상태라 interceptor가 이리로 보낸거면
-                System.out.println("마이페이지를 가려다 로그인으로 빠지셨네요. 다시 마이페이지로 돌아갑니다.");
+
                 session.setAttribute("destURI", null);
                 return "redirect:" + destURI;   // 가던길로 돌려줌
             }
             else {  // 로그인 링크를 눌러서 왔으면,
-                System.out.println("다시 홈으로 돌아갑니다.");
-                return "/main/main"; // 다시 홈으로
+
+                return "redirect:"; // 다시 홈으로
             }
         }else{
             return "/main/main";
@@ -105,13 +105,13 @@ public class LoginController {
         HttpSession session = request.getSession(false);
 
         if(session != null) {   // 안에 값이 있으면,
-            System.out.println(((Login)session.getAttribute("loginMember")).getId() + "님의 로그인 세션이 종료되었습니다.");
+
             session.invalidate();// session 만료시킴.
         } else {
-            System.out.println("로그인 세션이 없습니다.");
+
         }
 
-        return "/main/main"; // 홈(home.html) 화면으로
+        return "redirect:"; // 홈(home.html) 화면으로
     }
 
 }

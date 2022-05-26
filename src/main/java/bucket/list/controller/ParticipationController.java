@@ -122,24 +122,33 @@ public class ParticipationController {
     @PostMapping("/comment/{participationidx}")
     //댓글 저장
     public String comment(HttpServletRequest request,@PathVariable int participationidx,
-                          @RequestParam("comment_text") String comment_text){
+                          @ModelAttribute("comment") Comment comment,Model model){
+//        @RequestParam("comment_text") String comment_text
 
-
-        Comment comment = new Comment();
+//        Comment comment = new Comment();
         comment.setComment_number(participationidx);
-        comment.setComment_text(comment_text);
-
+//        comment.setComment_text(comment_text);
 
         HttpSession session = request.getSession();
-//        if(session != null){
-        comment.setComment_writer(((Login)session.getAttribute("loginMember")).getId());
-        commentService.save(comment);
-//        }
+
+
+
+        if(session != null){
+            comment.setComment_writer(((Login)session.getAttribute("loginMember")).getId());
+            commentService.save(comment);
+        }
+        String sessionwriter = ((Login)session.getAttribute("loginMember")).getId();   // sessionwriter에 현재 세션의 user이름을 넣어줌
+        String dbwriter = commentService.selectIdSQL(comment.getCommentidx());
+
+        if(session.equals(dbwriter)){
+            model.addAttribute("dbwriter", dbwriter);
+        }
 
         return "redirect:/participation/{participationidx}";
 
 
     }
+
 
     @GetMapping("/edit/{participationidx}")
     //게시글 수정 view 보여주고 전달
@@ -164,5 +173,23 @@ public class ParticipationController {
         participationService.deleteContent(participationidx);
 
         return "redirect:/participation";
+    }
+    @GetMapping("/commentEdit/{commentidx}/{participationidx}")
+    public String commentEdit(@PathVariable int participationidx,
+                              @PathVariable int commentidx,
+                              Model model){
+
+
+
+        return "redirect:/participation/{participationidx}";
+
+    }
+    @GetMapping("/commentDelete/{commentidx}/{participationidx}")
+    public String commentEdit(@PathVariable int participationidx,
+                              @PathVariable int commentidx){
+
+        commentService.deleteComment(commentidx);
+
+        return "redirect:/participation/{participationidx}";
     }
 }

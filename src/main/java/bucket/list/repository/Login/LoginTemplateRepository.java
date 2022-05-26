@@ -27,13 +27,13 @@ public class LoginTemplateRepository implements LoginRepositoryInterface {
     @Override
     public User findUserById(String id) {                   //  마이페이지를 위한 아이디를 입력하여 나머지 정보 출력
         //스트림을 사용하지 않을 경우
-        return jdbcTemplate.query("Select *from userdata WHERE user_id=?",
+        return jdbcTemplate.query("Select *from user WHERE user_id=?",
                 LoginRowMapper(),id).get(0);
     }
 
     @Override
     public List<User> findIdAll() {
-        return jdbcTemplate.query("SELECT user_id FROM userdata",LoginRowMapper());
+        return jdbcTemplate.query("SELECT user_id FROM user",LoginRowMapper());
     }
 
     // select 했을때 사용할 결과 행들
