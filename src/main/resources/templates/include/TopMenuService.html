@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content />
+    <meta name="author" content />
+    <title>Modern Business - Start Bootstrap Template</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../css/styles.css" rel="stylesheet" />
+</head>
+<body>
+<div th:fragment="TopMenuService">
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #ffffff;">
+    <div class="container px-5">
+        <a class="navbar-brand" href="/main"><img src="/imgs/logo2.png" height="50" width="50"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+<!--                <li th:each="board : ${boardInfo}" class="nav-item" >-->
+<!--                    <a class="nav-link" th:href="@{|menu/${board.board_info_idx}|}" th:text="${board.board_info_name}"></a>-->
+<!--                    <form>-->
+<!--                        <input type="hidden" th:value="board.board_info_idx">-->
+<!--                    </form>-->
+<!--                </li>-->
+                <li class="nav-item"><a class="nav-link" th:href="@{|/about|}">공지사항</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{|/participation|}">참여하기</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{|/community|}">게시판</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{|/customer|}">고객센터</a></li>
+                <li th:if="${session.loginMember== null}" class="nav-item"><a class="nav-link" th:href="@{|/user/login|}">로그인</a></li>
+                <li th:if="${session.loginMember== null}" class="nav-item"><a class="nav-link" th:href="@{|/user/create|}">회원가입</a></li>
+                <li th:if="${session.loginMember!= null}" class="nav-item"><a class="nav-link" th:href="@{|/user/mypage|}" >마이페이지</a></li>
+                <li th:if="${session.loginMember!= null}" class="nav-item"><a class="nav-link" th:href="@{|/user/logout|}">로그아웃</a></li>
+
+            </ul>
+
+        </div>
+    </div>
+</nav>
+</div>
+</body>
+</html>

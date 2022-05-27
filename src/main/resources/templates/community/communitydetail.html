@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>버킷리스트</title>
+    <!-- Bootstrap CDN -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+</head>
+<body class="d-flex flex-column">
+<main class="flex-shrink-0">
+    <!-- Navigation-->
+    <div th:replace="~{include/TopMenuService :: TopMenuService}"></div>
+    <!-- Page Content-->
+    <section class="py-5">
+        <div class="container px-5 my-5">
+            <div class="row gx-5">
+                <div class="col-lg-3">
+                    <div class="d-flex align-items-center mt-lg-5 mb-4">
+                        <div class="ms-3">
+                            <!-- 작성자 -->
+<!--                            <div class="fw-bold" th:text="${participation.participation_writer}">작성자</div>-->
+                            <!-- 메뉴 목록이름 -->
+<!--                            <div class="text-muted">여행정보 확인하기</div>-->
+                            <!-- 조회수 -->
+<!--                            <div class="text-muted" th:text="|조회수 : ${participation_count}|"></div>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <!-- Post content-->
+                    <article>
+                        <!-- Post header-->
+                        <header class="mb-4">
+                            <!-- 제목 -->
+                            <h1 class="fw-bolder mb-1" th:text="${data.communitysubject}">제목</h1>
+                            <!-- 작성일 -->
+<!--                            <div class="text-muted fst-italic mb-2" th:text="${participation.participation_date}">작성일</div>-->
+                        </header>
+                        <!-- 파일업로드 -->
+                        <figure class="mb-4"><img class="img-fluid rounded" th:if="${data.communityfile != null}" th:src="|/imagePath/${data.communityfile}|"alt="..." /></figure>
+                        <div class="fw-bold" th:text="${data.communitykind}">종류</div><br>
+                        <div class="fw-bold" th:text="${data.communitylocation}">위치</div><br>
+                        <div class="fw-bold" th:text="${data.communityprice}">비용</div><br>
+                        <!-- 글 작성 문단-->
+                        <section class="mb-5">
+                        <p class="fs-5 mb-4" th:text="${data.communitycontent}" >글내용</p><br>
+                        </section>
+                        <div class="fw-bold" th:text="${data.communitylink}">링크</div>
+                    </article>
+                    <br>
+<!--                    <button th:if="${session.userid != null}"  type="button" class="btn btn-success"><a th:href="@{/community/edit/{id}(id=${data.communityid})}">수정하기</a></button>-->
+                    <button th:if="${session.userid != null}" type="button" class="btn btn-success"  th:onclick="|location.href='@{/community/edit/{id}(id=${data.communityid})}'|">수정하기</button>
+                    <button th:if="${session.userid != null}" type="button" class="btn btn-secondary" th:onclick="|location.href='@{/community}'|">목록으로</button>
+                    <button th:if="${session.userid != null}" type="button" class="btn btn-success" th:onclick="|location.href='@{/community/delete(id=${data.communityid})}'|">삭제</button>
+                    <button th:if="${session.userid == null}" type="button" class="btn btn-secondary" th:onclick="|location.href='@{/community}'|">목록으로</button>
+                </div>  <!--  <button type="button" class="btn btn-danger" th:onclick="|location.href='@{/participation/delete/{participationidx}/(participationidx=${participation.participationidx})}'|">삭제하기</button>-->
+                </div>      <!--th:if="${userid?}" -->
+            </div>
+        </div>
+    </section>
+</main>
+<!-- Footer-->
+<div th:replace="~{include/BottomMenuService :: BottomMenuService}"></div>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+</body>
+</html>

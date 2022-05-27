@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Shop Homepage - Start Bootstrap Template</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../css2/styles.css" rel="stylesheet" />
+</head>
+<body>
+
+<!-- Navigation-->
+<div th:replace="~{include/TopMenuService :: TopMenuService}" ></div>
+<!-- Header-->
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder" >검색 결과</h1>
+        </div>
+    </div>
+</header>
+<!-- Section-->
+<!-- 커뮤니티 검색결과 -->
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="text-right" align="right" style = "padding: 0px 10px 20px 0px;">
+        </div>
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            <div class="col mb-5" th:each="search1 : ${search1}">
+                <div class="card h-100">
+                    <!-- Product image-->
+                    <img class="card-img-top" th:if="${search1.communityfile != null}" th:src="${search1.communityfile}|" alt="고객이 올린 이미지" />
+                    <img class="img-fluid" th:unless="${search1.communityfile != null}" src="./imgs/noImage.png" alt="img" />
+                    <!-- Product details-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <!-- Product name-->
+                            <a class="text-decoration-none link-dark stretched-link" th:href="@{|/community/finddetail/${search1.communityid}|}"><div class="h5 card-title mb-3" th:text="${search1.communitysubject}">Blog post title</div></a>
+                            <div class="fw-bold" th:text="${search1.communitytag}">태그</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 참여하기 검색결과 -->
+<!--<section class="py-5">-->
+<!--    <div class="container px-4 px-lg-5 mt-5">-->
+<!--        <div class="text-right" align="right" style = "padding: 0px 10px 20px 0px;">-->
+<!--        </div>-->
+<!--        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">-->
+<!--            <div class="col mb-5" th:each="search2 : ${search2}">-->
+<!--                <div class="card h-100">-->
+<!--                    &lt;!&ndash; Product image&ndash;&gt;-->
+<!--                    <img class="card-img-top" th:if="${search2.participation_file != null}" th:src="|/imagePath/${search2.participation_file}|" alt="고객이 올린 이미지" />-->
+<!--                    <img class="img-fluid" th:unless="${search2.participation_file != null}" src="./imgs/noImage.png" alt="img" />-->
+<!--                    &lt;!&ndash; Product details&ndash;&gt;-->
+<!--                    <div class="card-body p-4">-->
+<!--                        <div class="text-center">-->
+<!--                            &lt;!&ndash; Product name&ndash;&gt;-->
+<!--                            <a class="text-decoration-none link-dark stretched-link" th:href="@{|/participation/${search2.participationidx}|}"><div class="h5 card-title mb-3" th:text="${search1.communitysubject}">Blog post title</div></a>-->
+<!--                            <div class="fw-bold" th:text="${search2.participation_tag}">태그</div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
+
+<!-- Footer-->
+<footer class="py-5 bg-dark">
+    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p></div>
+</footer>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="../js2/scripts.js"></script>
+</body>
+</html>

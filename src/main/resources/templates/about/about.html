@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>버킷리스트</title>
+    <!-- Bootstrap CDN -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<!-- 상단 메뉴 부분 -->
+<div th:replace="~{include/TopMenuService :: TopMenuService}"></div>
+
+<!-- 게시글 리스트 -->
+<div class="container" style="margin-top:50px">
+    <div class="card shadow">
+        <div class="card-body">
+            <h4 class="card-title">공지사항</h4>
+            <h6> 총 건수 : <span th:text="${about_items.totalElements}"></span></h6>
+            <table class="table table-hover" id='board_list'>
+                <thead>
+                <tr>
+                    <th class="text-center d-none d-md-table-cell">글번호</th>
+                    <th class="w-50">제목</th>
+                    <th class="text-center d-none d-md-table-cell">작성자</th>
+                    <th class="text-center d-none d-md-table-cell">작성날짜</th>
+                    <th class="text-center d-none d-md-table-cell"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="about_item : ${about_items}">
+                    <td class="text-center d-none d-md-table-cell" th:text="${about_item.aboutnumber}">글번호</td>
+                    <td><a th:href="@{|/about/${about_item.aboutnumber}/read|}"><span th:text="${about_item.about_subject}">글 제목 입니다</span></a></td>
+                    <td class="text-center d-none d-md-table-cell" th:text="${about_item.about_writer}">작성자</td>
+                    <td class="text-center d-none d-md-table-cell" th:text="${about_item.about_date}">작성일</td>
+                    <td>
+                        <button type="button" class="btn btn-light" th:if="${session.adminid != null}" th:onclick="|location.href='@{/about/delete/{aboutnumber}/(aboutnumber=${about_item.aboutnumber})}'|"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                        </svg></button>
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+            <div class="d-none d-md-block">
+                <ul class="pagination justify-content-center">
+                    <!--1페이지일때 이전페이지 클릭비활성화  적용 -->
+                    <li class="page-item"    th:classappend="${1 == about_items.pageable.pageNumber + 1}? 'disabled'">
+                        <a href="#" th:href="@{/about(page=${about_items.pageable.pageNumber -1})}" class="page-link">이전</a>
+                    </li>
+                    <li class="page-item" th:each="page : ${#numbers.sequence(startPage,endPage)}">
+                        <a href="#" th:href="@{/about(page=${page})}" class="page-link" th:text="${page}">1</a>
+                    </li>
+                    <li class="page-item" th:classappend="${about_items.totalPages == about_items.pageable.pageNumber + 1}? 'disabled'">
+                        <a href="#" th:href="@{/about(page=${about_items.pageable.pageNumber +1})}" class="page-link">다음</a>
+                    </li>
+                </ul>
+            </div>
+
+
+
+            <div class="text-right">
+                <a  th:if="${session.adminid != null}" th:href="@{|/about/write|}" class="btn btn-primary">글쓰기</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{include/BottomMenuService :: BottomMenuService}"></div>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+</body>
+</html>
+
+
+
+
+
+

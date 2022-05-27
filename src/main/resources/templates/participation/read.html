@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>버킷리스트</title>
+    <!-- Bootstrap CDN -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+</head>
+<body class="d-flex flex-column">
+<main class="flex-shrink-0">
+    <!-- Navigation-->
+    <div th:replace="~{include/TopMenuService :: TopMenuService}"></div>
+    <!-- Page Content-->
+    <section class="py-5">
+        <div class="container px-5 my-5">
+            <div class="row gx-5">
+                <div class="col-lg-3">
+                    <div class="d-flex align-items-center mt-lg-5 mb-4">
+                        <div class="ms-3">
+                            <!-- 작성자 -->
+                            <div class="fw-bold" th:text="|작성자 : ${participation.participation_writer}|">작성자</div>
+                            <!-- 메뉴 목록이름 -->
+                            <div class="text-muted">양동이 살펴보기</div>
+                            <!-- 조회수 -->
+                            <div class="text-muted" th:text="|조회수 :  ${participation.count}|">조회수</div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <!-- Post content-->
+                    <article>
+                        <!-- Post header-->
+                        <header class="mb-4">
+                            <!-- 제목 -->
+                            <h1 class="fw-bolder mb-1" th:text="${participation.participation_subject}">제목</h1>
+                            <!-- 작성일 -->
+                            <div class="text-muted fst-italic mb-2" th:text="${participation.participation_date}">작성일</div>
+                        </header>
+                        <!-- 파일업로드 -->
+                        <figure class="mb-4"><img class="img-fluid rounded" th:if="${participation.participation_file != null}" th:src="|/imagePath/${participation.participation_file}|" alt="..." /></figure>
+
+                        <!-- 글 작성 문단-->
+                        <section class="mb-5">
+                            <p class="fs-5 mb-4" th:text="${participation.participation_text}" >글내용</p>
+                        </section>
+                    </article>
+                    <!-- 댓글항목 -->
+                    <section>
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <!-- 댓글폼 -->
+                                <form class="mb-4" th:action="@{|/participation/comment/${participationidx}|}" method="post" >
+                                    <textarea class="form-control" rows="3" id="comment_text" name="comment_text" placeholder="답글을 달아보세요!"></textarea>
+                                    <input type="hidden" th:field="${participation.participationidx}">
+                                    <button class="w-100 btn btn-primary btn-lg" type="submit">답글
+                                        등록</button>
+                                </form>
+                                <!-- Comment with nested comments-->
+                                <div class="d-flex mb-4" th:each="comment : ${comments}">
+                                    <!-- 답글-->
+                                    <div class="ms-3" >
+                                        <div class="d-flex mt-4">
+                                            <div class="ms-3">
+                                                <table>
+                                                    <tr>
+                                                        <div class="fw-bold" th:text="|작성자 : ${comment.comment_writer}|">작성자</div>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <div th:text="${comment.comment_text}"> 답글내용</div>
+                                                        <!--                                                        <div >-->
+                                                        <!--                                                            <textarea  name="comment_text"  cols="30" rows="5" th:text="${comment.comment_text}" th:value="${comment.comment_text}"></textarea>-->
+                                                        <!--                                                        </div>-->
+                                                        <td>
+                                                            <button type="button" class="btn btn-light" th:if="${dbwriter2 !=null}" th:onclick="|location.href='@{|/participation/commentEdit/${comment.commentidx}/${participationidx}|}'|">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                                                    <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                                                                </svg>
+                                                            </button>
+                                                        </td>
+                                                        <td>
+                                                            <button type="button" class="btn btn-light"  th:if="${dbwriter2 !=null}"  th:onclick="|location.href='@{|/participation/commentDelete/${comment.commentidx}/${participationidx}|}'|">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                                                </svg>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <br>
+                    <button type="button"  th:if="${dbwriter2 != null}" class="btn btn-success"  th:onclick="|location.href='@{/participation/edit/{participationidx}/(participationidx=${participation.participationidx})}'|">수정하기</button>
+                    <button type="button" class="btn btn-secondary" th:onclick="|location.href='@{/participation}'|">목록으로</button>
+                    <button type="button"  th:if="${dbwriter2 != null}" class="btn btn-danger" th:onclick="|location.href='@{/participation/delete/{participationidx}/(participationidx=${participation.participationidx})}'|">삭제하기</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<!-- Footer-->
+<div th:replace="~{include/BottomMenuService :: BottomMenuService}"></div>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+</body>
+</html>

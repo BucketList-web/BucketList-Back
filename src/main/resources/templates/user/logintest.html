@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:c="http://www.w3.org/1999/XSL/Transform">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+    <style>
+       * { box-sizing:border-box; }
+       a { text-decoration: none; }
+        form {
+            width:400px;
+            height:500px;
+            display : flex;
+            flex-direction: column;
+            align-items:center;
+            position : absolute;
+            top:50%;
+            left:50%;
+            transform: translate(-50%, -50%) ;
+            border: 1px solid rgb(89,117,196);
+            border-radius: 10px;
+        }
+        input[type='text'], input[type='password'] {
+            width: 300px;
+            height: 40px;
+            border : 1px solid rgb(89,117,196);
+            border-radius:5px;
+            padding: 0 10px;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: rgb(89,117,196);
+            color : white;
+            width:300px;
+            height:50px;
+            font-size: 17px;
+            border : none;
+            border-radius: 5px;
+            margin : 20px 0 30px 0;
+        }
+        #title {
+            font-size : 50px;
+            margin: 40px 0 30px 0;
+        }
+        #msg {
+            height: 30px;
+            text-align:center;
+            font-size:16px;
+            color:red;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <form action="/user/login" method="post" onsubmit="return Check(this);">
+        <ht3 id="title">로그인</ht3>
+        <div id="msg">
+	    </div>
+        <input type="text" name="id" placeholder="아이디 입력" autofocus>
+        <input type="password" name="pw" placeholder="비밀번호">
+        <button>로그인</button>
+        <div>
+            <a th:href="@{create}">회원가입</a>
+        </div>        <script>
+        function Check(frm) {
+            let msg ='';
+
+            if(frm.id.value.length==0) {
+                // setMessage('id를 입력해주세요.', frm.id);
+                alert("아이디를 입력해주세요");
+                return false;
+            }
+
+            if(frm.pw.value.length==0) {
+                // setMessage('password를 입력해주세요.', frm.pw);
+                alert("비밀번호를 입력해주세요");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+
+    </form>
+
+</body>
+</html>

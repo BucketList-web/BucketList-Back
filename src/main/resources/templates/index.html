@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>너와 나의 버킷리스트</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../css/styles.css" rel="stylesheet" />
+    <style>
+        h1 {
+            text-align: center;
+            font-size: 90px;
+        }
+        h1 span:nth-child(1) {
+            color: #4260f4;
+        }
+        h1 span:nth-child(2) {
+            color:#ea4335;
+        }
+        h1 span:nth-child(3) {
+            color:#fbbc05;
+        }
+        h1 span:nth-child(4) {
+            color:#4285f4;
+        }
+        h1 span:nth-child(5) {
+            color:#34a853;
+        }
+        h1 span:nth-child(6) {
+            color:#ea4335;
+        }
+        .search-bar {
+            width: 500px;
+        }
+        hr.one{
+            width:1220px; color:green; border: thin solid green;
+        }
+        hr.two{
+            width:1220px; color:blue; border: thin solid blue;
+        }
+    </style>
+</head>
+<body class="d-flex flex-column h-100">
+<main class="flex-shrink-0">
+    <div th:replace="~{include/TopMenuService :: TopMenuService}"></div>
+    <!-- Header-->
+
+
+    <header class="bg-dark py-5">
+        <h1>
+            <span>B</span><span>u</span><span>c</span><span>k</span><span>e</span><span>t</span>
+        </h1>
+        <form action="/main" method="POST">
+            <div class="mx-auto mt-5 search-bar input-group mb-3">
+                <input name="search" type="text" class="form-control rounded-pill" placeholder="검색어 입력" aria-label="Recipient's username" aria-describedby="button-addon2">
+                <div class="input-group-append">
+                </div>
+            </div>
+        </form>
+    </header>
+    <!-- Features section-->
+
+    <section class="py-5" id="features">
+        <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active" data-bs-interval="10000">
+                    <img src="./imgs/img2.png" class="img-fluid" alt="이미지1" height="300" width="600">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>버킷리스트</h5>
+                        <p>나만의 버킷리스트를 설계해보세요</p>
+                    </div>
+                </div>
+                <div class="carousel-item" data-bs-interval="2000">
+                    <img src="./imgs/img3.png" class="img-fluid" alt="이미지1" height="200" width="500">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>참여하기</h5>
+                        <p>나와 같은 목표인 사람과 함께 해요</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="./imgs/img4.png" class="img-fluid" alt="이미지1" height="200" width="500">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>커뮤니티</h5>
+                        <p>다른 사람의 버킷리스트 정보를 얻어봐요</p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
+    <!-- 커뮤니티 최신글 -->
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+            <h2 class="font-weight-bold" style="color:green">커뮤니티 추천글</h2>
+            <hr class ="one">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <div class="col mb-5" th:each="data : ${data}">
+                    <div class="card h-100">
+                        <!-- Product image-->
+                        <!--                        <img class="card-img-top" th:if="${data.communityfilepath}==${data.communityfilepath}" th:src="${data.communityfilepath}" alt="고객이 올린 이미지" />-->
+                        <img class="card-img-top" th:if="${data.communityfile !=null }" th:src="|/imagePath/${data.communityfile}|" alt="고객이 올린 이미지" />
+                        <img class="img-fluid" th:unless="${data.communityfile != null}" src="./imgs/noImage.png" alt="img" />
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <a class="text-decoration-none link-dark stretched-link" th:href="@{|/community/finddetail/${data.communityid}|}"><div class="h5 card-title mb-3" th:text="${data.communitysubject}">Blog post title</div></a>
+                                <div class="fw-bold" th:text="${data.communitytag}">태그</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-outline-success" th:onclick="|location.href='@{/community}'|">다양한 버킷리스트 더보기</button>
+            </div>
+            <div class="justify-content-center">
+            </div>
+        </div>
+    </section>
+
+    <!-- 참여하기 최신글 -->
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+            <h2 class="font-weight-bold" style="color:blue">참여하기 추천글</h2>
+            <hr class ="two">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <div class="col mb-5" th:each="data2 : ${data2}">
+                    <div class="card h-100">
+                        <!-- Product image-->
+                        <img class="card-img-top" th:if="${data2.participation_file !=null }" th:src="|/imagePath/${data2.participation_file}|" alt="고객이 올린 이미지" />
+                        <img class="img-fluid" th:unless="${data2.participation_file != null}" src="./imgs/noImage.png" alt="img" />
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <a class="text-decoration-none link-dark stretched-link" th:href="@{|/participation/${data2.participationidx}|}"><div class="h5 card-title mb-3" th:text="${data2.participation_subject}">Blog post title</div></a>
+                                <div class="fw-bold" th:text="${data2.participation_tag}">태그</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-outline-primary" th:onclick="|location.href='@{/participation}'|">다양한 참여하기 더보기</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to action-->
+    <aside class="bg-primary bg-gradient rounded-3 p-4 p-sm-5 mt-5">
+        <div class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start">
+            <div class="mb-4 mb-xl-0">
+                <div class="fs-3 fw-bold text-white">고객센터</div>
+                <div class="text-white-50">02-000-0000</div>
+            </div>
+            <div class="ms-xl-4">
+                <div class="input-group mb-2">
+                    <button class="btn btn-outline-light" id="button-newsletter" type="button" th:onclick="|location.href='@{/customer}'|">고객센터 페이지</button>
+                </div>
+                <div class="small text-white-50">고객센터 운영시간 09:00 ~ 18:00<br>
+                    휴게시간 13:00 ~ 14:00</div>
+            </div>
+        </div>
+    </aside>
+    </div>
+    </section>
+</main>
+<!-- Footer-->
+<div th:replace="~{include/BottomMenuService :: BottomMenuService}"></div>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+</body>
+</html>
